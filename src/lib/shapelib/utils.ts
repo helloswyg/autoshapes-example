@@ -1,41 +1,41 @@
-import { PathArray, PointArray } from "@svgdotjs/svg.js";
+import { PathArray, PointArray, PathCommand, Point } from "@svgdotjs/svg.js";
 
 export function smooth(pathArray: PathArray): PathArray {
-  let flattened_array = [].concat.apply([], pathArray);
-  if (flattened_array[0] == "S") {
+  let flattenedArray = pathArray.flat();
+  if (flattenedArray[0] === "S") {
     return pathArray;
   }
-  if (flattened_array[0] == "M") {
-    flattened_array = flattened_array.slice(3);
+  if (flattenedArray[0] === "M") {
+    flattenedArray = flattenedArray.slice(3);
   }
-  if (flattened_array[0] == "C") {
-    flattened_array = flattened_array.slice(2);
-    flattened_array[0] = "S";
+  if (flattenedArray[0] === "C") {
+    flattenedArray = flattenedArray.slice(2);
+    flattenedArray[0] = "S";
   } else {
     throw new Error("Only cubic bezier curves are supported");
   }
-  return flattened_array;
+  return new PathArray(flattenedArray);
 }
 
 export function flip(pathArray: PathArray, how: "x" | "y"): PathArray {
-  let flattenedArray = [].concat.apply([], pathArray);
+  let flattenedArray = pathArray.flat();
   let numberCounter = 0;
 
   for (let index = 0; index < flattenedArray.length; index++) {
     const element = flattenedArray[index];
     if (typeof element === "number") {
-      if (how == "y") {
+      if (how === "y") {
         // if element is at an even-numbered position it's an x coordidante otherwise a y coordinate
-        flattenedArray[index] = numberCounter % 2 == 0 ? element : -element;
+        flattenedArray[index] = numberCounter % 2 === 0 ? element : -element;
       }
-      if (how == "x") {
+      if (how === "x") {
         // if element is at an even-numbered position it's an x coordidante otherwise a y coordinate
-        flattenedArray[index] = numberCounter % 2 == 1 ? element : -element;
+        flattenedArray[index] = numberCounter % 2 === 1 ? element : -element;
       }
       numberCounter += 1;
     }
   }
-  return flattenedArray;
+  return new PathArray(flattenedArray);
 }
 
 export function flipY(pathArray: PathArray): PathArray {
@@ -50,15 +50,16 @@ export function flipXY(pathArray: PathArray): PathArray {
   return flip(flip(pathArray, "x"), "y");
 }
 
-export function scale(pathArray: PathArray, factor: number) {
+export function scale(pathArray: PathArray, factor: number): PathArray {
   // scale path relative to 0,0 means we simply multiply all numbers by factor
-  let flattenedArray = [].concat.apply([], pathArray);
+  let flattenedArray = pathArray.flat();
   for (let index = 0; index < flattenedArray.length; index++) {
-    if (typeof flattenedArray[index] === "number") {
-      flattenedArray[index] *= factor;
+    const value = flattenedArray[index]
+    if (typeof value === "number") {
+      flattenedArray[index] = value * factor;
     }
   }
-  return flattenedArray;
+  return new PathArray(flattenedArray)
 }
 
 export function small(pathArray: PathArray): PathArray {
@@ -70,13 +71,13 @@ export function big(pathArray: PathArray): PathArray {
 }
 
 export function toPointArray(pathArray: PathArray): PointArray {
-  const flattenedArray = [].concat.apply([], pathArray);
-  let output = new Array();
+  let flattenedArray = pathArray.flat();
+  let output: number[] = [];
 
   for (let index = 0; index < flattenedArray.length; index++) {
     const element = flattenedArray[index];
     if (typeof element === "number") {
-      output = output.concat([element]);
+      output = output.concat(element);
     }
   }
   return new PointArray(output);
@@ -88,26 +89,27 @@ export function pathCompose(segments: PathArray[]): PathArray {
   // each segment is encoded as if starting at 0,0 so the segment has to be translated to new coordinates before appending.
 
   let output = new PathArray();
-  if ([].concat.apply([], segments[0])[0] != "M") {
+  if (segments[0].flat()[0] !== "M") {
     output = output = new PathArray("M 0 0");
   }
 
   segments.forEach((segment) => {
-    const flattened_output = [].concat.apply([], output);
-    let flattened_segment = [].concat.apply([], segment);
-    const x: number = flattened_output[flattened_output.length - 2];
-    const y: number = flattened_output[flattened_output.length - 1];
-    let number_counter = 0;
+    const flattenedOutput = output.flat();
+    let flattenedSegment = segment.flat();
+    const x = flattenedOutput[flattenedOutput.length - 2];
+    const y = flattenedOutput[flattenedOutput.length - 1];
+    let numberCounter = 0;
 
-    for (let index = 0; index < flattened_segment.length; index++) {
-      const element = flattened_segment[index];
+    if(typeof x !== "number" || typeof y !== 'number') return output;
+    for (let index = 0; index < flattenedSegment.length; index++) {
+      const element = flattenedSegment[index];
       if (typeof element === "number") {
         // if element is at an even-numbered position it's an x coordidante otherwise a y coordinate
-        flattened_segment[index] += number_counter % 2 == 0 ? x : y;
-        number_counter += 1;
+        flattenedSegment[index] = element + (numberCounter % 2 === 0 ? x : y);
+        numberCounter += 1;
       }
     }
-    output = output.concat(flattened_segment) as PathArray;
+    output = output.concat(new PathArray(flattenedSegment)) as PathArray;
   });
 
   return output;

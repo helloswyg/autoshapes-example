@@ -59,6 +59,7 @@ export function drawGallery(
 ): void {
   const targetElement =
     element instanceof HTMLElement ? element : document.querySelector(element);
+  if(targetElement === null) return;
   Object.keys(gallery).forEach((key) => {
     const block = gallery[key];
     const div = document.createElement("div");
