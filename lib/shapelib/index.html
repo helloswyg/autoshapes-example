@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Examples of Organic Shapes</title>
+    <script type="module">
+      window.onload = () => {
+        organicShapes.drawGallery(
+          "#basic-gallery",
+          organicShapes.library.basicBlocks
+        );
+        organicShapes.drawGallery(
+          "#composite-gallery",
+          organicShapes.library.compositeShapes
+        );
+        organicShapes.drawGallery(
+          "#closed-gallery",
+          organicShapes.library.closedShapes
+        );
+        organicShapes.drawGallery(
+          "#closed-gallery-filled",
+          organicShapes.library.closedShapes,
+          "#444"
+        );
+        organicShapes.drawTestCurve("#line-example");
+      };
+    </script>
+    <style>
+      body {
+        height: 100%;
+      }
+      html {
+        height: 100%;
+      }
+      .gallery-element {
+        width: 250px;
+        height: 250px;
+        float: left;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Examples of Organic Shapes</h1>
+    <h2>Gallery of Basic Shapes</h2>
+    <div id="basic-gallery" style="height: 100%"></div>
+    <h2>Gallery of Composite Shapes</h2>
+    <div id="composite-gallery" style="height: 100%"></div>
+    <h2>Composed Complex Line</h2>
+    <div id="line-example" style="height: 100%"></div>
+    <h2>Gallery of Closed Shapes</h2>
+    <div id="closed-gallery" style="height: 100%"></div>
+    <h2>Gallery of Closed Shapes- Filled</h2>
+    <div id="closed-gallery-filled" style="height: 100%"></div>
+  </body>
+</html>
