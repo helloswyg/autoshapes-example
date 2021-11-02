@@ -28,15 +28,8 @@ jobs:
     - name: Build Stage
       run: yarn build
     
-    - name: Deploy on GitHub Pages
-      run: |
-        git config --global user.name $user_name
-        git config --global user.email $user_email
-        git remote set-url origin https://${github_token}@github.com/${repository}
-        npm run deploy
-      env:
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-
+        publish_dir: ./build
