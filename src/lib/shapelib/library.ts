@@ -1,5 +1,5 @@
-import { off, PathArray } from "@svgdotjs/svg.js";
-import { pathCompose, flipY, flipX, flipXY, smooth, small } from "./utils";
+import { PathArray } from "@svgdotjs/svg.js";
+import { pathCompose, flipY, flipX, flipXY, small } from "./utils";
 
 export type pathLibrary = { [key: string]: PathArray };
 
@@ -88,7 +88,7 @@ function nPointRadial(radialDistances: number[]): PathArray {
     const controlPointX = x + dX;
     const controlPointY = y + dY;
 
-    if (i == 1) {
+    if (i === 1) {
       output = output.concat([
         "C",
         20 + offset.x,
@@ -108,7 +108,7 @@ function nPointRadial(radialDistances: number[]): PathArray {
       ]) as PathArray;
     }
   }
-  let p = new PathArray();
+
   output = output.concat(["z"]) as PathArray;
 
   return output;

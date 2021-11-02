@@ -1,4 +1,4 @@
-import { PathArray, PointArray, PathCommand, Point } from "@svgdotjs/svg.js";
+import { PathArray, PointArray } from "@svgdotjs/svg.js";
 
 export function smooth(pathArray: PathArray): PathArray {
   let flattenedArray = pathArray.flat();

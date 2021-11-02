@@ -1,6 +1,6 @@
-import { Svg, SVG, Rect, Path, PathArray, PointArray } from "@svgdotjs/svg.js";
+import { Svg, SVG, Path, PathArray } from "@svgdotjs/svg.js";
 import * as library from "./library";
-import { smooth, pathCompose, toPointArray, flipY, small, big } from "./utils";
+import { pathCompose, toPointArray, flipY, small, big } from "./utils";
 
 export { library };
 
