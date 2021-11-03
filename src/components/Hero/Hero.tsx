@@ -10,7 +10,6 @@ type HeroProps = {
 export const Hero = ({ title, subTitle, buttons = [] }: HeroProps) => (
   <div>
     <Typography variant="h1">{title}</Typography>
-
     <Typography variant="h2">{subTitle}</Typography>
     <>{buttons}</>
   </div>
