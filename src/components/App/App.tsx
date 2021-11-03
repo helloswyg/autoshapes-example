@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import * as shapelib from '../../lib/shapelib';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
+import { Hero } from '../Hero';
+import { Section } from '../Section';
 
 function App() {
   useEffect(() => {
@@ -9,9 +13,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello World</h1>
-      {/* <div style={{hei}}> */}
-      <div id="line-example" style={{ width: '100%', height: '100%' }}></div>
+      <Header />
+      <Section>
+        <Hero />
+      </Section>
+      <Footer />
+      {/* <div id="line-example" style={{ width: '100%', height: '100%' }}></div> */}
     </div>
     // </div>
   );
