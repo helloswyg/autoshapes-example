@@ -1,20 +1,20 @@
-import { PathArray } from "@svgdotjs/svg.js";
-import { pathCompose, flipY, flipX, flipXY, small } from "./utils";
+import { PathArray } from '@svgdotjs/svg.js';
+import { pathCompose, flipY, flipX, flipXY, small } from './utils';
 
 export type pathLibrary = { [key: string]: PathArray };
 
 ////////////////////////////////////////////////////////////////////////////////////
 // basic blocks
 ////////////////////////////////////////////////////////////////////////////////////
-const loopSegment = new PathArray("C 25 50 25 100 0 100");
-const reverseLoopSegment = new PathArray("C 25 0 25 50 0 100");
-const curveSegment90 = new PathArray("C 50 0 100 50 100 100");
-const reverseCurveSegment90 = new PathArray("C 0 50 50 100 100 100");
-const curveSegment45 = new PathArray("C 50 25 75 50 100 100");
-const reverseCurveSegment45 = new PathArray("C 25 50 50 75 100 100");
-const connectorSegment = new PathArray("C 50 25 90 25 100 25");
-const reverseConnectorSegment = new PathArray("C 10 0 50 0 100 25");
-const horizontalrSegment = new PathArray("C 25 0 25 0 25 0");
+const loopSegment = new PathArray('C 25 50 25 100 0 100');
+const reverseLoopSegment = new PathArray('C 25 0 25 50 0 100');
+const curveSegment90 = new PathArray('C 50 0 100 50 100 100');
+const reverseCurveSegment90 = new PathArray('C 0 50 50 100 100 100');
+const curveSegment45 = new PathArray('C 50 25 75 50 100 100');
+const reverseCurveSegment45 = new PathArray('C 25 50 50 75 100 100');
+const connectorSegment = new PathArray('C 50 25 90 25 100 25');
+const reverseConnectorSegment = new PathArray('C 10 0 50 0 100 25');
+const horizontalrSegment = new PathArray('C 25 0 25 0 25 0');
 
 export const basicBlocks: pathLibrary = {
   loopSegment,
@@ -37,18 +37,9 @@ export const loop = pathCompose([
   flipXY(reverseLoopSegment),
   flipY(reverseCurveSegment45),
 ]);
-export const crest = pathCompose([
-  curveSegment45,
-  flipY(reverseCurveSegment45),
-]);
-export const connector = pathCompose([
-  connectorSegment,
-  flipY(reverseConnectorSegment),
-]);
-export const twistConnector = pathCompose([
-  connectorSegment,
-  reverseConnectorSegment,
-]);
+export const crest = pathCompose([curveSegment45, flipY(reverseCurveSegment45)]);
+export const connector = pathCompose([connectorSegment, flipY(reverseConnectorSegment)]);
+export const twistConnector = pathCompose([connectorSegment, reverseConnectorSegment]);
 export const drop = pathCompose([
   curveSegment90,
   flipX(loopSegment),
@@ -72,25 +63,21 @@ export const compositeShapes: pathLibrary = {
 function nPointRadial(radialDistances: number[]): PathArray {
   const smoothness = 4;
   const offset = { x: 100, y: 100 };
-  let output = new PathArray(["M", offset.x, offset.y + radialDistances[0]]);
+  let output = new PathArray(['M', offset.x, offset.y + radialDistances[0]]);
   const numSegments = radialDistances.length;
 
   for (let i = 1; i < radialDistances.length + 1; i++) {
     const d = radialDistances[i % numSegments];
     const x = d * Math.sin((i * 2 * Math.PI) / numSegments) + offset.x;
     const y = d * Math.cos((i * 2 * Math.PI) / numSegments) + offset.y;
-    const dX =
-      ((-Math.cos((i * 2 * Math.PI) / numSegments) * d) / numSegments) *
-      smoothness;
-    const dY =
-      ((Math.sin((i * 2 * Math.PI) / numSegments) * d) / numSegments) *
-      smoothness;
+    const dX = ((-Math.cos((i * 2 * Math.PI) / numSegments) * d) / numSegments) * smoothness;
+    const dY = ((Math.sin((i * 2 * Math.PI) / numSegments) * d) / numSegments) * smoothness;
     const controlPointX = x + dX;
     const controlPointY = y + dY;
 
     if (i === 1) {
       output = output.concat([
-        "C",
+        'C',
         20 + offset.x,
         radialDistances[0] + offset.y,
         controlPointX,
@@ -99,17 +86,11 @@ function nPointRadial(radialDistances: number[]): PathArray {
         y,
       ]) as PathArray;
     } else {
-      output = output.concat([
-        "S",
-        controlPointX,
-        controlPointY,
-        x,
-        y,
-      ]) as PathArray;
+      output = output.concat(['S', controlPointX, controlPointY, x, y]) as PathArray;
     }
   }
 
-  output = output.concat(["z"]) as PathArray;
+  output = output.concat(['z']) as PathArray;
 
   return output;
 }

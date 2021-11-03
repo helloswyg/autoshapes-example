@@ -1,34 +1,34 @@
-import { PathArray, PointArray } from "@svgdotjs/svg.js";
+import { PathArray, PointArray } from '@svgdotjs/svg.js';
 
 export function smooth(pathArray: PathArray): PathArray {
   let flattenedArray = pathArray.flat();
-  if (flattenedArray[0] === "S") {
+  if (flattenedArray[0] === 'S') {
     return pathArray;
   }
-  if (flattenedArray[0] === "M") {
+  if (flattenedArray[0] === 'M') {
     flattenedArray = flattenedArray.slice(3);
   }
-  if (flattenedArray[0] === "C") {
+  if (flattenedArray[0] === 'C') {
     flattenedArray = flattenedArray.slice(2);
-    flattenedArray[0] = "S";
+    flattenedArray[0] = 'S';
   } else {
-    throw new Error("Only cubic bezier curves are supported");
+    throw new Error('Only cubic bezier curves are supported');
   }
   return new PathArray(flattenedArray);
 }
 
-export function flip(pathArray: PathArray, how: "x" | "y"): PathArray {
+export function flip(pathArray: PathArray, how: 'x' | 'y'): PathArray {
   let flattenedArray = pathArray.flat();
   let numberCounter = 0;
 
   for (let index = 0; index < flattenedArray.length; index++) {
     const element = flattenedArray[index];
-    if (typeof element === "number") {
-      if (how === "y") {
+    if (typeof element === 'number') {
+      if (how === 'y') {
         // if element is at an even-numbered position it's an x coordidante otherwise a y coordinate
         flattenedArray[index] = numberCounter % 2 === 0 ? element : -element;
       }
-      if (how === "x") {
+      if (how === 'x') {
         // if element is at an even-numbered position it's an x coordidante otherwise a y coordinate
         flattenedArray[index] = numberCounter % 2 === 1 ? element : -element;
       }
@@ -39,27 +39,27 @@ export function flip(pathArray: PathArray, how: "x" | "y"): PathArray {
 }
 
 export function flipY(pathArray: PathArray): PathArray {
-  return flip(pathArray, "y");
+  return flip(pathArray, 'y');
 }
 
 export function flipX(pathArray: PathArray): PathArray {
-  return flip(pathArray, "x");
+  return flip(pathArray, 'x');
 }
 
 export function flipXY(pathArray: PathArray): PathArray {
-  return flip(flip(pathArray, "x"), "y");
+  return flip(flip(pathArray, 'x'), 'y');
 }
 
 export function scale(pathArray: PathArray, factor: number): PathArray {
   // scale path relative to 0,0 means we simply multiply all numbers by factor
   let flattenedArray = pathArray.flat();
   for (let index = 0; index < flattenedArray.length; index++) {
-    const value = flattenedArray[index]
-    if (typeof value === "number") {
+    const value = flattenedArray[index];
+    if (typeof value === 'number') {
       flattenedArray[index] = value * factor;
     }
   }
-  return new PathArray(flattenedArray)
+  return new PathArray(flattenedArray);
 }
 
 export function small(pathArray: PathArray): PathArray {
@@ -76,7 +76,7 @@ export function toPointArray(pathArray: PathArray): PointArray {
 
   for (let index = 0; index < flattenedArray.length; index++) {
     const element = flattenedArray[index];
-    if (typeof element === "number") {
+    if (typeof element === 'number') {
       output = output.concat(element);
     }
   }
@@ -89,8 +89,8 @@ export function pathCompose(segments: PathArray[]): PathArray {
   // each segment is encoded as if starting at 0,0 so the segment has to be translated to new coordinates before appending.
 
   let output = new PathArray();
-  if (segments[0].flat()[0] !== "M") {
-    output = output = new PathArray("M 0 0");
+  if (segments[0].flat()[0] !== 'M') {
+    output = output = new PathArray('M 0 0');
   }
 
   segments.forEach((segment) => {
@@ -100,10 +100,10 @@ export function pathCompose(segments: PathArray[]): PathArray {
     const y = flattenedOutput[flattenedOutput.length - 1];
     let numberCounter = 0;
 
-    if(typeof x !== "number" || typeof y !== 'number') return output;
+    if (typeof x !== 'number' || typeof y !== 'number') return output;
     for (let index = 0; index < flattenedSegment.length; index++) {
       const element = flattenedSegment[index];
-      if (typeof element === "number") {
+      if (typeof element === 'number') {
         // if element is at an even-numbered position it's an x coordidante otherwise a y coordinate
         flattenedSegment[index] = element + (numberCounter % 2 === 0 ? x : y);
         numberCounter += 1;

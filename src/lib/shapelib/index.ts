@@ -1,23 +1,20 @@
-import { Svg, SVG, Path, PathArray } from "@svgdotjs/svg.js";
-import * as library from "./library";
-import { pathCompose, toPointArray, flipY, small, big } from "./utils";
+import { Svg, SVG, Path, PathArray } from '@svgdotjs/svg.js';
+import * as library from './library';
+import { pathCompose, toPointArray, flipY, small, big } from './utils';
 
 export { library };
 
 function quickDrawPath(elementID: string, pathArray: PathArray): Path {
-  const draw: Svg = SVG().addTo(elementID).size("100%", "100%");
-  const path = draw
-    .path(pathArray)
-    .fill("none")
-    .stroke({ color: "#000", width: 3 });
+  const draw: Svg = SVG().addTo(elementID).size('100%', '100%');
+  const path = draw.path(pathArray).fill('none').stroke({ color: '#000', width: 3 });
   return path;
 }
 
 export function drawTestCurve(elementID: string): Svg {
-  const draw: Svg = SVG().addTo(elementID).size("100%", "100%");
-  const gradient = draw.gradient("linear", function (add) {
-    add.stop(0, "#333");
-    add.stop(1, "#f03");
+  const draw: Svg = SVG().addTo(elementID).size('100%', '100%');
+  const gradient = draw.gradient('linear', function (add) {
+    add.stop(0, '#333');
+    add.stop(1, '#f03');
   });
   const composedPath = pathCompose([
     small(flipY(library.crest)),
@@ -35,36 +32,27 @@ export function drawTestCurve(elementID: string): Svg {
     translateX: 0,
     translateY: 300,
     scale: 0.5,
-    flip: "y",
+    flip: 'y',
   };
 
   draw
     .path(composedPath)
-    .fill("none")
+    .fill('none')
     .stroke({ color: gradient.url(), width: 3, opacity: 0.8 })
     .transform(transformParams);
 
-  draw
-    .polyline(toPointArray(composedPath))
-    .fill("none")
-    .stroke({ color: "#faa", width: 0 })
-    .transform(transformParams);
+  draw.polyline(toPointArray(composedPath)).fill('none').stroke({ color: '#faa', width: 0 }).transform(transformParams);
   return draw;
 }
 
-export function drawGallery(
-  element: string | HTMLElement,
-  gallery: library.pathLibrary,
-  fill: string = "none"
-): void {
-  const targetElement =
-    element instanceof HTMLElement ? element : document.querySelector(element);
-  if(targetElement === null) return;
+export function drawGallery(element: string | HTMLElement, gallery: library.pathLibrary, fill: string = 'none'): void {
+  const targetElement = element instanceof HTMLElement ? element : document.querySelector(element);
+  if (targetElement === null) return;
   Object.keys(gallery).forEach((key) => {
     const block = gallery[key];
-    const div = document.createElement("div");
+    const div = document.createElement('div');
     div.id = key + targetElement.id;
-    div.className = "gallery-element";
+    div.className = 'gallery-element';
     targetElement.appendChild(div);
     quickDrawPath(`#${div.id}`, pathCompose([block]))
       .transform({
