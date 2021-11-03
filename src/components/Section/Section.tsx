@@ -1,9 +1,5 @@
-import React from 'react';
+import { Box, BoxProps } from '@mui/material';
 
-type Props = {
-  children: React.ReactNode;
-};
-
-export function Section(props: Props) {
-  return <div className="section">{props.children}</div>;
-}
+export const Section = (props: BoxProps) => (
+  <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" {...props} />
+);
