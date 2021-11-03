@@ -4,6 +4,17 @@ object-assign
 @license MIT
 */
 
+/*!
+* @svgdotjs/svg.js - A lightweight library for manipulating and animating SVG.
+* @version 3.1.1
+* https://svgjs.dev/
+*
+* @copyright Wout Fierens <wout@mick-wout.com>
+* @license MIT
+*
+* BUILT: Fri Jun 25 2021 15:37:54 GMT+0200 (Mitteleuropäische Sommerzeit)
+*/
+
 /** @license MUI v5.0.2
  *
  * This source code is licensed under the MIT license found in the
