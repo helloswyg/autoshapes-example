@@ -28,11 +28,10 @@ export function drawTestCurve(elementID: string): Svg {
   ]);
 
   const transformParams = {
-    rotate: 20,
+    rotate: 0,
     translateX: 0,
-    translateY: 300,
-    scale: 0.5,
-    flip: 'y',
+    translateY: 500,
+    scale: 1,
   };
 
   draw
