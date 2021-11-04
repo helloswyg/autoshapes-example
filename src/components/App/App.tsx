@@ -4,7 +4,6 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { Hero } from '../Hero';
 import { Section } from '../Section';
-import { getShapeTheme } from '../../shapeTheme';
 
 function App() {
   return (
