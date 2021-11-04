@@ -1,4 +1,4 @@
-import { PathArray, PointArray } from '@svgdotjs/svg.js';
+import { Path, PathArray, PointArray, Svg, SVG } from '@svgdotjs/svg.js';
 
 export function smooth(pathArray: PathArray): PathArray {
   let flattenedArray = pathArray.flat();
@@ -113,4 +113,10 @@ export function pathCompose(segments: PathArray[]): PathArray {
   });
 
   return output;
+}
+
+export function quickDrawPath(elementID: string, pathArray: PathArray): Path {
+  const draw: Svg = SVG().addTo(elementID).size('100%', '100%');
+  const path = draw.path(pathArray).fill('none').stroke({ color: '#000', width: 3 });
+  return path;
 }
