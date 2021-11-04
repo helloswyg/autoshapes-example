@@ -15,7 +15,7 @@ function App() {
     <div className={styles.app}>
       <Header />
       <Section>
-      <div id="line-example" style={{ width: '100%', height: '100%', position:'absolute', zIndex:-1 }}></div>
+        <div id="line-example" style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -1 }}></div>
         <Hero
           title={<>Instant Unique Brand</>}
           subTitle={
@@ -26,7 +26,6 @@ function App() {
         />
       </Section>
       <Footer />
-      
     </div>
     // </div>
   );
