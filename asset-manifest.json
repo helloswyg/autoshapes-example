@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/autoshapes-example/static/css/main.2a00a3da.chunk.css",
-    "main.js": "/autoshapes-example/static/js/main.179287cb.chunk.js",
-    "main.js.map": "/autoshapes-example/static/js/main.179287cb.chunk.js.map",
+    "main.js": "/autoshapes-example/static/js/main.ffbff4f1.chunk.js",
+    "main.js.map": "/autoshapes-example/static/js/main.ffbff4f1.chunk.js.map",
     "runtime-main.js": "/autoshapes-example/static/js/runtime-main.39880e90.js",
     "runtime-main.js.map": "/autoshapes-example/static/js/runtime-main.39880e90.js.map",
     "static/js/2.78a1dfca.chunk.js": "/autoshapes-example/static/js/2.78a1dfca.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.39880e90.js",
     "static/js/2.78a1dfca.chunk.js",
     "static/css/main.2a00a3da.chunk.css",
-    "static/js/main.179287cb.chunk.js"
+    "static/js/main.ffbff4f1.chunk.js"
   ]
 }
