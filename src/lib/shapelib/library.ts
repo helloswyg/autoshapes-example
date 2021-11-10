@@ -60,7 +60,7 @@ export const compositeShapes: pathLibrary = {
 // closed shapes
 ////////////////////////////////////////////////////////////////////////////////////
 
-function nPointRadial(radialDistances: number[]): PathArray {
+export function nPointRadial(radialDistances: number[]): PathArray {
   const smoothness = 4;
   const offset = { x: 100, y: 100 };
   let output = new PathArray(['M', offset.x, offset.y + radialDistances[0]]);
