@@ -1,30 +1,15 @@
-import { PathArray } from '@svgdotjs/svg.js';
+import { Path, PathArray } from '@svgdotjs/svg.js';
 import * as core from './core';
 
 test('getShape returns a PathArray', () => {
-  const shapeProps = {
-    kind: core.ShapeKind.WAVY,
-    complexity: 4,
-    smoothness: 2,
-    variability: 9,
-    seed: 123,
-  };
+  const myShape = core.getShape(core.defaultShapeProps);
 
-  const myShape = core.getShape(shapeProps);
-
-  expect(myShape).toBeInstanceOf(PathArray)
+  expect(myShape).toBeInstanceOf(PathArray);
 });
 
-test.skip('drawShape returns a PathArray', () => {
-  const shapeProps = {
-    kind: core.ShapeKind.WAVY,
-    complexity: 4,
-    smoothness: 2,
-    variability: 9,
-    seed: 123,
-  };
+test('drawShape returns a Path', () => {
+  let dummyElement = document.createElement('div');
+  const myShape = core.drawShape({element:dummyElement, ...core.defaultDrawShapeProps});
 
-  const myShape = core.drawShape(shapeProps);
-
-  expect(myShape).toBeInstanceOf(PathArray)
+  expect(myShape).toBeInstanceOf(Path);
 });
