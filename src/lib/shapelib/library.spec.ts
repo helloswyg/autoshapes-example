@@ -1,3 +1,4 @@
+import { PathArray } from '@svgdotjs/svg.js';
 import * as library from './library'
 
 test('Radial Shape Function Returns a point array', () => {
@@ -7,7 +8,7 @@ test('Radial Shape Function Returns a point array', () => {
       radii[r] = 100 + r * 10
     }
     const shape = library.nPointRadial(radii)
-    expect(shape).toBe
+    expect(shape).toBeInstanceOf(PathArray)
   }
     
   });

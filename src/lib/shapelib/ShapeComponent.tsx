@@ -1,16 +1,16 @@
 import { useEffect, useRef } from 'react';
-import { drawThemedShape, ShapeTheme } from './themedShape';
+import { drawShape, ShapeProps, StyleProps } from './core';
 
-export type ShapeProps = ShapeTheme;
+type ShapeComponentProps = ShapeProps & StyleProps
 
-export const Shape = (props: ShapeProps) => {
+export const ShapeComponent = (props: ShapeComponentProps) => {
   const refToDiv = useRef(null);
 
   useEffect(() => {
-    refToDiv.current && drawThemedShape(refToDiv.current, props);
+    refToDiv.current && drawShape({element:refToDiv.current, ...props});
   });
 
   return (
-    <div ref={refToDiv} id="line-example" style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -1 }} />
+    <div ref={refToDiv} style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -1 }} />
   );
 };
