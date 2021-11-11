@@ -1,2 +1,2 @@
-import * as library from './library';
-export { library };
+export  { ShapeComponent } from "./ShapeComponent";
+export * from "./core"
