@@ -1,20 +1,23 @@
 name: Node.js - Test and Deploy
 
-on:
-  push:
-    branches:
-     - main
+on: [push, pull_request]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup Node.js
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
-        node-version: 16.x
+        node-version: ${{ matrix.node-version }}
         cache: 'yarn'
     - run: yarn install
 
@@ -23,9 +26,3 @@ jobs:
 
     - name: Build Stage
       run: yarn build
-
-    - name: Deploy to github pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
