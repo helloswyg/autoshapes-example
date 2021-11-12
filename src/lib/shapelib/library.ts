@@ -1,6 +1,6 @@
 import { PathArray } from '@svgdotjs/svg.js';
-import { pathCompose, flipY, flipX, flipXY, small } from './utils';
-
+import seedrandom from 'seedrandom';
+import { pathCompose, flipY, flipX, flipXY, small, big } from './utils';
 export type pathLibrary = { [key: string]: PathArray };
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -56,11 +56,24 @@ export const compositeShapes: pathLibrary = {
   drop,
 };
 
+export interface LoopyLineParams {
+  numElements: number;
+  variability: number;
+  smoothness: number;
+  baseRadius: number;
+}
+
+export function loopyLine(params: LoopyLineParams): PathArray {
+  // TODO: make loopy line procedural
+  return pathCompose([small(flipY(crest)), twistConnector, small(loop), big(flipY(loop)), connector]);
+}
+
 ////////////////////////////////////////////////////////////////////////////////////
 // closed shapes
 ////////////////////////////////////////////////////////////////////////////////////
 
 export function nPointRadial(radialDistances: number[]): PathArray {
+  // TODO: implement smoothness
   const smoothness = 4;
   const offset = { x: 100, y: 100 };
   let output = new PathArray(['M', offset.x, offset.y + radialDistances[0]]);
@@ -93,6 +106,23 @@ export function nPointRadial(radialDistances: number[]): PathArray {
   output = output.concat(['z']) as PathArray;
 
   return output;
+}
+
+export interface ClosedPathParams {
+  numPoints: number;
+  variability: number;
+  smoothness: number;
+  baseRadius: number;
+}
+
+export function closedPath(params: ClosedPathParams): PathArray {
+  // TODO: implement smoothness
+  const rng = seedrandom('seed string');
+  const radii = new Array(params.numPoints);
+  for (let i = 0; i < params.numPoints; i++) {
+    radii[i] = params.baseRadius + (rng() - 0.5) * params.variability;
+  }
+  return nPointRadial(radii);
 }
 
 export const blob2 = nPointRadial([75, 75]);

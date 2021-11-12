@@ -1,4 +1,5 @@
 import { FillData, MatrixAlias, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
+import { library } from '.';
 
 export enum ShapeKind {
   WAVY,
@@ -43,12 +44,32 @@ export const defaultStyleProps: Required<StyleProps> = {
 
 export const defaultDrawShapeProps = { ...defaultShapeProps, ...defaultStyleProps };
 
-export function getShape(props: ShapeProps) {
-  switch (props.kind) {
+export function getShape(params: ShapeProps) {
+  const allParams: Required<ShapeProps> = { ...defaultShapeProps, ...params };
+  switch (allParams.kind) {
     case ShapeKind.LOOPY:
-      break;
+      // TODO: make loopy line procedural
+      return library.loopyLine({
+        numElements: allParams.complexity,
+        variability: allParams.variability,
+        smoothness: allParams.smoothness,
+        baseRadius: 100,
+      });
+    case ShapeKind.WAVY:
+      // TODO: implemeny wavy line
+      return library.loopyLine({
+        numElements: allParams.complexity,
+        variability: allParams.variability,
+        smoothness: allParams.smoothness,
+        baseRadius: 100,
+      });
     case ShapeKind.CLOSED:
-      break;
+      return library.closedPath({
+        numPoints: allParams.complexity,
+        variability: allParams.variability,
+        smoothness: allParams.smoothness,
+        baseRadius: 100,
+      });
     default:
       break;
   }
