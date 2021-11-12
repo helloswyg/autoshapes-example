@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import { ShapeComponent, ShapeKind } from '../../lib/shapelib';
-import { getShapeTheme } from '../../shapeTheme';
 
 type HeroProps = {
   title: ReactNode;

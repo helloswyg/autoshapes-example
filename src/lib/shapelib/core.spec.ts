@@ -9,7 +9,7 @@ test('getShape returns a PathArray', () => {
 
 test('drawShape returns a Path', () => {
   let dummyElement = document.createElement('div');
-  const myShape = core.drawShape({element:dummyElement, ...core.defaultDrawShapeProps});
+  const myShape = core.drawShape({ element: dummyElement, ...core.defaultDrawShapeProps });
 
   expect(myShape).toBeInstanceOf(Path);
 });
