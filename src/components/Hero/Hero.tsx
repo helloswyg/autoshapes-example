@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material';
 import { ReactNode } from 'react';
-import { Shape } from '../../lib/shapelib/ShapeComponent';
-import { getShapeTheme } from '../../shapeTheme';
+import { ShapeComponent, ShapeKind } from '../../lib/shapelib';
 
 type HeroProps = {
   title: ReactNode;
@@ -9,11 +8,15 @@ type HeroProps = {
   buttons?: ReactNode;
 };
 
+const shapeProps = {
+  kind: ShapeKind.LOOPY,
+  complexity: 4,
+};
+
 export const Hero = ({ title, subTitle, buttons = [] }: HeroProps) => {
-  const shapeTheme = getShapeTheme();
   return (
     <div id="div-outer" style={{ margin: '5em' }}>
-      <Shape {...shapeTheme} />
+      <ShapeComponent {...shapeProps} />
       <div style={{ margin: '5em' }}>
         <Typography variant="h1">{title}</Typography>
         <Typography variant="h2">{subTitle}</Typography>
