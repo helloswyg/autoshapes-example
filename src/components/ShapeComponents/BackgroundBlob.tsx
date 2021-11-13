@@ -10,9 +10,5 @@ export const BackgroundBlob = ({ numPoints, ...styleProps }: BackgroundBlobProps
     complexity: numPoints,
   };
 
-  return (
-    <div id="div-outer" style={{ margin: '5em' }}>
-      <ShapeComponent {...shapeProps} {...styleProps} />
-    </div>
-  );
+  return <ShapeComponent {...shapeProps} {...styleProps} />;
 };

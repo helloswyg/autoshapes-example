@@ -78,17 +78,29 @@ export function getShape(params: ShapeProps) {
 
 export function drawShape(params: DrawShapeParams) {
   const allParams: Required<DrawShapeParams> = { ...defaultDrawShapeProps, ...params };
-
+  const pathArray = getShape(allParams as ShapeProps);
   const draw: Svg = SVG().addTo(allParams.element).size('100%', '100%');
-  let pathArray = getShape(allParams as ShapeProps);
-  const path = draw.path(pathArray);
+  let path = draw.path(pathArray);
   let filledPath = path;
+
+  // some verbose language to be allowed to use overloaded "fill" function with union types
   if (typeof allParams.fill === 'string') {
     filledPath = path.fill(allParams.fill as string);
   } else {
     filledPath = path.fill(allParams.fill as FillData);
   }
-  filledPath.stroke(allParams.stroke);
+  path = filledPath.stroke(allParams.stroke);
+
+  // set viewport for svg to bounding box + margin
+  const bbox = path.bbox();
+  const margin = 4;
+  const bboxExpanded = {
+    x: bbox.x - margin,
+    y: bbox.y - margin,
+    width: bbox.width + margin * 2,
+    height: bbox.height + margin * 2,
+  };
+  draw.viewbox({ ...bboxExpanded });
 
   return path;
 }

@@ -14,5 +14,5 @@ export const ShapeComponent = (props: ShapeComponentProps) => {
     }
   });
 
-  return <div ref={refToDiv} style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -1 }} />;
+  return <div ref={refToDiv} style={{ width: '100%', height: '100%', zIndex: -1 }} />;
 };

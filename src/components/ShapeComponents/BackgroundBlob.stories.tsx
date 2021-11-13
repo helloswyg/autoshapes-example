@@ -14,7 +14,11 @@ export default {
 } as ComponentMeta<typeof BackgroundBlob>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof BackgroundBlob> = (args) => <BackgroundBlob {...args} />;
+const Template: ComponentStory<typeof BackgroundBlob> = (args) => (
+  <div style={{ width: '10em', height: '10em' }}>
+    <BackgroundBlob {...args} />
+  </div>
+);
 
 export const Filled = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
