@@ -7,8 +7,12 @@ export const ShapeComponent = (props: ShapeComponentProps) => {
   const refToDiv = useRef(null);
 
   useEffect(() => {
-    refToDiv.current && drawShape({ element: refToDiv.current, ...props });
-  });
+    if (refToDiv.current){
+      const ref = refToDiv.current as HTMLElement
+      ref.textContent= ''
+      drawShape({ element: ref, ...props });
+    }
+  })
 
-  return <div ref={refToDiv} style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -1 }} />;
+  return <div ref={refToDiv} style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -1 }}/>;
 };
