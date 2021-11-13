@@ -9,7 +9,7 @@ export const BackgroundBlob = ({ numPoints, ...styleProps }: BackgroundBlobProps
     kind: ShapeKind.CLOSED,
     complexity: numPoints,
   };
-  
+
   return (
     <div id="div-outer" style={{ margin: '5em' }}>
       <ShapeComponent {...shapeProps} {...styleProps} />

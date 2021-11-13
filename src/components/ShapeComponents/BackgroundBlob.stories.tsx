@@ -20,5 +20,5 @@ export const Filled = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Filled.args = {
   numPoints: 5,
-  fill: '#aaaaaa' ,
+  fill: '#aaaaaa',
 };

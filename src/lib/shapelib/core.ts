@@ -78,7 +78,7 @@ export function getShape(params: ShapeProps) {
 
 export function drawShape(params: DrawShapeParams) {
   const allParams: Required<DrawShapeParams> = { ...defaultDrawShapeProps, ...params };
-  
+
   const draw: Svg = SVG().addTo(allParams.element).size('100%', '100%');
   let pathArray = getShape(allParams as ShapeProps);
   const path = draw.path(pathArray);
