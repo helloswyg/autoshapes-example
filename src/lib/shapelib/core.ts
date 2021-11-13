@@ -1,4 +1,3 @@
-import { bindExpression } from '@babel/types';
 import { FillData, MatrixAlias, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
 import { library } from '.';
 
