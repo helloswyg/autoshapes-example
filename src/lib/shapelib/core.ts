@@ -1,3 +1,4 @@
+import { bindExpression } from '@babel/types';
 import { FillData, MatrixAlias, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
 import { library } from '.';
 
@@ -29,7 +30,7 @@ export type Element = {
 export type DrawShapeParams = Element & ShapeProps & StyleProps;
 
 export const defaultShapeProps: Required<ShapeProps> = {
-  kind: ShapeKind.LOOPY,
+  kind: ShapeKind.CLOSED,
   complexity: 4,
   smoothness: 1,
   variability: 1,
@@ -92,15 +93,19 @@ export function drawShape(params: DrawShapeParams) {
   path = filledPath.stroke(allParams.stroke);
 
   // set viewport for svg to bounding box + margin
-  const bbox = path.bbox();
-  const margin = 4;
-  const bboxExpanded = {
-    x: bbox.x - margin,
-    y: bbox.y - margin,
-    width: bbox.width + margin * 2,
-    height: bbox.height + margin * 2,
-  };
-  draw.viewbox({ ...bboxExpanded });
+  try {
+    const bbox = path.bbox();
+    const margin = 4;
+    const bboxExpanded = {
+      x: bbox.x - margin,
+      y: bbox.y - margin,
+      width: bbox.width + margin * 2,
+      height: bbox.height + margin * 2,
+    };
+    draw.viewbox({ ...bboxExpanded });
+  } catch (e) {
+    //TODO: do something to get an alternative bounding box
+  }
 
   return path;
 }
