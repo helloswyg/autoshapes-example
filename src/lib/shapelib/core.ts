@@ -16,7 +16,7 @@ export interface ShapeProps {
 }
 
 export type StyleProps = {
-  fill?: FillData;
+  fill?: FillData | string;
   stroke?: StrokeData;
   // gradient?: { type: string; block?: (stop: Gradient) => void };
   transform?: MatrixAlias;
@@ -78,10 +78,17 @@ export function getShape(params: ShapeProps) {
 
 export function drawShape(params: DrawShapeParams) {
   const allParams: Required<DrawShapeParams> = { ...defaultDrawShapeProps, ...params };
-
+  
   const draw: Svg = SVG().addTo(allParams.element).size('100%', '100%');
   let pathArray = getShape(allParams as ShapeProps);
-  const path = draw.path(pathArray).fill(allParams.fill).stroke(allParams.stroke);
+  const path = draw.path(pathArray);
+  let filledPath = path;
+  if (typeof allParams.fill === 'string') {
+    filledPath = path.fill(allParams.fill as string);
+  } else {
+    filledPath = path.fill(allParams.fill as FillData);
+  }
+  filledPath.stroke(allParams.stroke);
 
   return path;
 }
