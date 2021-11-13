@@ -16,8 +16,8 @@ export interface ShapeProps {
 }
 
 export type StyleProps = {
-  fill?: FillData;
-  stroke?: StrokeData;
+  fill?: FillData | string;
+  stroke?: StrokeData | string;
   // gradient?: { type: string; block?: (stop: Gradient) => void };
   transform?: MatrixAlias;
 };
@@ -29,7 +29,7 @@ export type Element = {
 export type DrawShapeParams = Element & ShapeProps & StyleProps;
 
 export const defaultShapeProps: Required<ShapeProps> = {
-  kind: ShapeKind.LOOPY,
+  kind: ShapeKind.CLOSED,
   complexity: 4,
   smoothness: 1,
   variability: 1,
@@ -78,10 +78,37 @@ export function getShape(params: ShapeProps) {
 
 export function drawShape(params: DrawShapeParams) {
   const allParams: Required<DrawShapeParams> = { ...defaultDrawShapeProps, ...params };
-
+  const pathArray = getShape(allParams as ShapeProps);
   const draw: Svg = SVG().addTo(allParams.element).size('100%', '100%');
-  let pathArray = getShape(allParams as ShapeProps);
-  const path = draw.path(pathArray).fill(allParams.fill).stroke(allParams.stroke);
+  let path = draw.path(pathArray);
+  let filledPath = path;
+
+  // some verbose language to be allowed to use overloaded "fill" function with union types
+  if (typeof allParams.fill === 'string') {
+    filledPath = path.fill(allParams.fill as string);
+  } else {
+    filledPath = path.fill(allParams.fill as FillData);
+  }
+  if (typeof allParams.stroke === 'string') {
+    path = filledPath.stroke(allParams.stroke as string);
+  } else {
+    path = filledPath.stroke(allParams.stroke as StrokeData);
+  }
+
+  // set viewport for svg to bounding box + margin
+  try {
+    const bbox = path.bbox();
+    const margin = 4;
+    const bboxExpanded = {
+      x: bbox.x - margin,
+      y: bbox.y - margin,
+      width: bbox.width + margin * 2,
+      height: bbox.height + margin * 2,
+    };
+    draw.viewbox({ ...bboxExpanded });
+  } catch (e) {
+    //TODO: do something to get an alternative bounding box
+  }
 
   return path;
 }

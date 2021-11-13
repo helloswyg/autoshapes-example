@@ -65,7 +65,14 @@ export interface LoopyLineParams {
 
 export function loopyLine(params: LoopyLineParams): PathArray {
   // TODO: make loopy line procedural
-  return pathCompose([new PathArray(["M 0 400"]) ,small(flipY(crest)), twistConnector, small(loop), big(flipY(loop)), connector]);
+  return pathCompose([
+    new PathArray(['M 0 0']),
+    small(flipY(crest)),
+    twistConnector,
+    small(loop),
+    big(flipY(loop)),
+    connector,
+  ]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
