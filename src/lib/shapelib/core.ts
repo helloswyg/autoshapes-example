@@ -17,7 +17,7 @@ export interface ShapeProps {
 
 export type StyleProps = {
   fill?: FillData | string;
-  stroke?: StrokeData;
+  stroke?: StrokeData | string;
   // gradient?: { type: string; block?: (stop: Gradient) => void };
   transform?: MatrixAlias;
 };
@@ -89,7 +89,11 @@ export function drawShape(params: DrawShapeParams) {
   } else {
     filledPath = path.fill(allParams.fill as FillData);
   }
-  path = filledPath.stroke(allParams.stroke);
+  if (typeof allParams.stroke === 'string') {
+    path = filledPath.stroke(allParams.stroke as string);
+  } else {
+    path = filledPath.stroke(allParams.stroke as StrokeData);
+  }
 
   // set viewport for svg to bounding box + margin
   try {
