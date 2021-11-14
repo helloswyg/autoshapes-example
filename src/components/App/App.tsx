@@ -4,6 +4,7 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { Hero } from '../Hero';
 import { Section } from '../Section';
+import { AccentBlobsExample } from '../AccentBlobsExample';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
             </>
           }
         />
+      </Section>
+      <Section>
+        <AccentBlobsExample/>
       </Section>
       <Footer />
     </div>
