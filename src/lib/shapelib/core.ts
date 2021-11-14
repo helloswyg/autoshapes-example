@@ -1,4 +1,4 @@
-import { FillData, MatrixAlias, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
+import { Container, FillData, MatrixAlias, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
 import { library } from '.';
 
 export enum ShapeKind {
@@ -15,10 +15,17 @@ export interface ShapeProps {
   seed?: number;
 }
 
+export type simpleGradient = string[];
+
+export type GradientSpec = [...Parameters<Container['gradient']>, number?];
+function isGradientSpec(spec: any): spec is GradientSpec {
+  if(!Array.isArray(spec)) return false
+  return ['linear', 'radial'].includes((spec as GradientSpec)[0]);
+}
+
 export type StyleProps = {
-  fill?: FillData | string;
-  stroke?: StrokeData | string;
-  // gradient?: { type: string; block?: (stop: Gradient) => void };
+  fill?: FillData | string | GradientSpec;
+  stroke?: StrokeData | string | GradientSpec;
   transform?: MatrixAlias;
 };
 
@@ -86,8 +93,14 @@ export function drawShape(params: DrawShapeParams) {
   // some verbose language to be allowed to use overloaded "fill" function with union types
   if (typeof allParams.fill === 'string') {
     filledPath = path.fill(allParams.fill as string);
+  } else if( isGradientSpec(allParams.fill)){
+    let rotation = 0
+    if (allParams.fill.length === 3) rotation = allParams.fill[2] as number
+    const gradientParams = allParams.fill.slice(0,2) as Parameters<Container['gradient']>
+    const gradient = draw.gradient(...gradientParams).rotate(rotation)
+    filledPath = path.fill(gradient);
   } else {
-    filledPath = path.fill(allParams.fill as FillData);
+    filledPath = path.fill(allParams.fill);
   }
   if (typeof allParams.stroke === 'string') {
     path = filledPath.stroke(allParams.stroke as string);
