@@ -6,7 +6,6 @@ type BackgroundBlobProps = StyleProps & {
 };
 
 export const BackgroundBlob: React.FC<BackgroundBlobProps> = (props) => {
-
   const shapeProps = {
     kind: ShapeKind.CLOSED,
     complexity: props.numPoints,
