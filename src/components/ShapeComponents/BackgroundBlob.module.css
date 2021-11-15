@@ -1,11 +1,11 @@
-.shape{
-    position: absolute;
+.shape {
+  position: absolute;
 }
 
-.container{
-   position: relative; 
+.container {
+  position: relative;
 }
 
-.contents{
-    margin: auto;
+.contents {
+  margin: auto;
 }
