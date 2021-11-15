@@ -122,15 +122,15 @@ export function quickDrawPath(elementID: string, pathArray: PathArray): Path {
   return path;
 }
 
-export function simpleLinearGradient(stops: string[], orientation= 90) {
-  const gradientSpec: GradientSpec = [
-    'linear',
-    (add) => {
+export function simpleLinearGradient(stops: string[], orientation = 90) {
+  const gradientSpec: GradientSpec = {
+    type: 'linear',
+    block: (add) => {
       for (let i = 0; i < stops.length; i++) {
         add.stop(i / (stops.length - 1), stops[i]);
       }
     },
-    orientation
-  ];
+    orientation,
+  };
   return gradientSpec;
 }

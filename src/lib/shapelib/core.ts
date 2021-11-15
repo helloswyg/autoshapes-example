@@ -1,5 +1,7 @@
-import { Container, FillData, MatrixAlias, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
+import { Container, FillData, Gradient, MatrixAlias, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
 import { library } from '.';
+
+// Type definitions /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export enum ShapeKind {
   WAVY,
@@ -13,14 +15,19 @@ export interface ShapeProps {
   smoothness?: number;
   variability?: number;
   seed?: number;
+  path?: PathArray | null;
 }
 
-export type simpleGradient = string[];
+export interface GradientSpec {
+  type: string;
+  block: (stop: Gradient) => void;
+  orientation?: number;
+}
 
-export type GradientSpec = [...Parameters<Container['gradient']>, number?];
 function isGradientSpec(spec: any): spec is GradientSpec {
-  if(!Array.isArray(spec)) return false
-  return ['linear', 'radial'].includes((spec as GradientSpec)[0]);
+  if (!('type' in spec)) return false;
+  if (!('block' in spec)) return false;
+  return ['linear', 'radial'].includes((spec as GradientSpec).type);
 }
 
 export type StyleProps = {
@@ -35,12 +42,15 @@ export type Element = {
 
 export type DrawShapeParams = Element & ShapeProps & StyleProps;
 
+// Default Values /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export const defaultShapeProps: Required<ShapeProps> = {
   kind: ShapeKind.CLOSED,
   complexity: 4,
   smoothness: 1,
   variability: 1,
   seed: 1,
+  path: null,
 };
 
 export const defaultStyleProps: Required<StyleProps> = {
@@ -51,8 +61,12 @@ export const defaultStyleProps: Required<StyleProps> = {
 
 export const defaultDrawShapeProps = { ...defaultShapeProps, ...defaultStyleProps };
 
+// Function implementations /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export function getShape(params: ShapeProps) {
   const allParams: Required<ShapeProps> = { ...defaultShapeProps, ...params };
+  if (allParams.path !== null) return allParams.path;
+
   switch (allParams.kind) {
     case ShapeKind.LOOPY:
       // TODO: make loopy line procedural
@@ -93,17 +107,20 @@ export function drawShape(params: DrawShapeParams) {
   // some verbose language to be allowed to use overloaded "fill" function with union types
   if (typeof allParams.fill === 'string') {
     filledPath = path.fill(allParams.fill as string);
-  } else if( isGradientSpec(allParams.fill)){
-    let rotation = 0
-    if (allParams.fill.length === 3) rotation = allParams.fill[2] as number
-    const gradientParams = allParams.fill.slice(0,2) as Parameters<Container['gradient']>
-    const gradient = draw.gradient(...gradientParams).rotate(rotation)
+  } else if (isGradientSpec(allParams.fill)) {
+    const gradientParams: Parameters<Container['gradient']> = [allParams.fill.type, allParams.fill.block];
+    const gradient = draw.gradient(...gradientParams).rotate(allParams.fill.orientation || 0);
     filledPath = path.fill(gradient);
   } else {
     filledPath = path.fill(allParams.fill);
   }
+
   if (typeof allParams.stroke === 'string') {
     path = filledPath.stroke(allParams.stroke as string);
+  } else if (isGradientSpec(allParams.stroke)) {
+    const gradientParams: Parameters<Container['gradient']> = [allParams.stroke.type, allParams.stroke.block];
+    const gradient = draw.gradient(...gradientParams).rotate(allParams.stroke.orientation || 0);
+    filledPath = path.fill(gradient);
   } else {
     path = filledPath.stroke(allParams.stroke as StrokeData);
   }
@@ -121,6 +138,7 @@ export function drawShape(params: DrawShapeParams) {
     draw.viewbox({ ...bboxExpanded });
   } catch (e) {
     //TODO: do something to get an alternative bounding box
+    // this is currently only a problem in jest. Real browsers do fine.
   }
 
   return path;

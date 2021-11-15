@@ -21,7 +21,7 @@ function App() {
         />
       </Section>
       <Section>
-        <AccentBlobsExample/>
+        <AccentBlobsExample />
       </Section>
       <Footer />
     </div>

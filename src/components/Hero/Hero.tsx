@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material';
+import zIndex from '@mui/material/styles/zIndex';
 import { ReactNode } from 'react';
 import { ShapeComponent, ShapeKind } from '../../lib/shapelib';
 import styles from './Hero.module.css';
@@ -20,7 +21,7 @@ export const Hero = ({ title, subTitle, buttons = [], lineColor = shapeProps.str
   shapeProps.stroke.color = lineColor;
   return (
     <div className={styles.heroOuterDiv}>
-      <ShapeComponent {...shapeProps} style={{ position: 'absolute', maxWidth: '80%', marginTop: '-3em' }} />
+      <ShapeComponent {...shapeProps} style={{ position: 'absolute', maxWidth: '70%', marginTop: '-3em', zIndex:-1}} />
       <div style={{ margin: '5em' }}>
         <Typography variant="h1">{title}</Typography>
         <Typography variant="h2">{subTitle}</Typography>
