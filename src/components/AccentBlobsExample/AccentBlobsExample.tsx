@@ -1,7 +1,8 @@
-import { Grid, Paper, Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { ReactNode, FC } from 'react';
 import { ShapeComponent, ShapeKind } from '../../lib/shapelib';
 import { simpleLinearGradient } from '../../lib/shapelib/utils';
+import { BackgroundBlob } from '../ShapeComponents/BackgroundBlob';
 
 type AccentBlobsExampleProps = {
   title: ReactNode;
@@ -17,22 +18,21 @@ const shapeProps = {
   fill: simpleLinearGradient(['red', 'blue']),
 };
 
-const Item: FC<{}> = props => (
-  <Paper>{props.children}</Paper>
-)
+const Item: FC<{}> = (props) => <Paper>{props.children}</Paper>;
 
 export const AccentBlobsExample = () => {
   return (
-    <div className="example">
-      {/* <ShapeComponent {...shapeProps} style={{ position: 'absolute', maxWidth: '80%', marginTop: '-3em' }} /> */}
-      <Grid container spacing={2}>
-  <Grid item xs={8}>
-item1
-  </Grid>
-  <Grid item xs={8}>
-    item 2
-  </Grid>
-</Grid>
-    </div>
+    <Grid container spacing={2}>
+      <Grid item xs={4}>
+        <BackgroundBlob numPoints={5}>hello</BackgroundBlob>
+      </Grid>
+      <Grid item xs={4}>
+        <BackgroundBlob numPoints={3}>hello</BackgroundBlob>
+      </Grid>
+    </Grid>
   );
 };
+
+{
+  /* <ShapeComponent {...shapeProps} style={{ position: 'absolute', maxWidth: '80%', marginTop: '-3em' }} /> */
+}

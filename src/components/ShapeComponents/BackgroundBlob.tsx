@@ -4,11 +4,16 @@ type BackgroundBlobProps = StyleProps & {
   numPoints: number;
 };
 
-export const BackgroundBlob = ({ numPoints, ...styleProps }: BackgroundBlobProps) => {
+export const BackgroundBlob: React.FC<BackgroundBlobProps> = (props) => {
   const shapeProps = {
     kind: ShapeKind.CLOSED,
-    complexity: numPoints,
+    complexity: props.numPoints,
   };
 
-  return <ShapeComponent {...shapeProps} {...styleProps} />;
+  return (
+    <div style={{ position: 'relative' }}>
+      <ShapeComponent {...shapeProps} {...props} style={{ position: 'absolute' }} />
+      {props.children}
+    </div>
+  );
 };
