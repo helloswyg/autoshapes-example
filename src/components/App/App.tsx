@@ -5,6 +5,7 @@ import { Footer } from '../Footer';
 import { Hero } from '../Hero';
 import { Section } from '../Section';
 import { AccentBlobsExample } from '../AccentBlobsExample';
+import { TextBlock } from '../TextBlock';
 
 function App() {
   return (
@@ -20,8 +21,13 @@ function App() {
           }
         />
       </Section>
-      <Section>
+      <Section >
         <AccentBlobsExample />
+      </Section>
+      <Section >
+        <TextBlock title="Text Block">
+          This is a text block body text.
+        </TextBlock>
       </Section>
       <Footer />
     </div>

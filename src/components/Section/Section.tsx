@@ -8,6 +8,7 @@ export const Section = (props: BoxProps) => (
     minHeight="60vh"
     maxWidth="1440px"
     margin="auto"
+    padding="5rem 0 5rem 0"
     {...props}
   />
 );
