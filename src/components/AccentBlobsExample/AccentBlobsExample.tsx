@@ -1,38 +1,27 @@
-import { Grid, Paper, Paper, Typography } from '@mui/material';
-import { ReactNode, FC } from 'react';
-import { ShapeComponent, ShapeKind } from '../../lib/shapelib';
-import { simpleLinearGradient } from '../../lib/shapelib/utils';
+import { Grid } from '@mui/material';
+import { BackgroundBlob } from '../ShapeComponents/BackgroundBlob';
 
-type AccentBlobsExampleProps = {
-  title: ReactNode;
-  subTitle: ReactNode;
-  buttons?: ReactNode;
-  lineColor?: string;
-};
-
-const shapeProps = {
-  kind: ShapeKind.CLOSED,
-  complexity: 4,
-  stroke: { color: '#ff1b5f', width: 3 },
-  fill: simpleLinearGradient(['red', 'blue']),
-};
-
-const Item: FC<{}> = props => (
-  <Paper>{props.children}</Paper>
-)
+const Item: React.FC<{}> = (props) => <div style={{padding:'2em'}}>{props.children}</div>;
 
 export const AccentBlobsExample = () => {
   return (
-    <div className="example">
-      {/* <ShapeComponent {...shapeProps} style={{ position: 'absolute', maxWidth: '80%', marginTop: '-3em' }} /> */}
-      <Grid container spacing={2}>
-  <Grid item xs={8}>
-item1
-  </Grid>
-  <Grid item xs={8}>
-    item 2
-  </Grid>
-</Grid>
-    </div>
+    <Grid container spacing={2}>
+      <Grid item xs={4}>
+        <BackgroundBlob numPoints={5}>
+          <Item>hello 1</Item>
+          </BackgroundBlob>
+      </Grid>
+      <Grid item xs={4}>
+        <BackgroundBlob numPoints={3}>
+        <Item>hello 2</Item>
+          </BackgroundBlob>
+      </Grid>
+
+      <Grid item xs={4}>
+        <BackgroundBlob numPoints={9}>
+        <Item>hello 3</Item>
+          </BackgroundBlob>
+      </Grid>
+    </Grid>
   );
 };
