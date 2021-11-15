@@ -9,7 +9,7 @@ export enum ShapeKind {
   CLOSED,
 }
 
-export interface ShapeProps {
+export interface PathProps {
   kind: ShapeKind;
   complexity?: number;
   smoothness?: number;
@@ -40,11 +40,12 @@ export type Element = {
   element: HTMLElement | string;
 };
 
-export type DrawShapeParams = Element & ShapeProps & StyleProps;
+export type ShapeProps = PathProps & StyleProps;
+export type DrawShapeParams = Element & PathProps & StyleProps;
 
 // Default Values /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const defaultShapeProps: Required<ShapeProps> = {
+export const defaultShapeProps: Required<PathProps> = {
   kind: ShapeKind.CLOSED,
   complexity: 4,
   smoothness: 1,
@@ -63,8 +64,8 @@ export const defaultDrawShapeProps = { ...defaultShapeProps, ...defaultStyleProp
 
 // Function implementations /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export function getShape(params: ShapeProps) {
-  const allParams: Required<ShapeProps> = { ...defaultShapeProps, ...params };
+export function getShape(params: PathProps) {
+  const allParams: Required<PathProps> = { ...defaultShapeProps, ...params };
   if (allParams.path !== null) return allParams.path;
 
   switch (allParams.kind) {
@@ -99,7 +100,7 @@ export function getShape(params: ShapeProps) {
 
 export function drawShape(params: DrawShapeParams) {
   const allParams: Required<DrawShapeParams> = { ...defaultDrawShapeProps, ...params };
-  const pathArray = getShape(allParams as ShapeProps);
+  const pathArray = getShape(allParams as PathProps);
   const draw: Svg = SVG().addTo(allParams.element).size('100%', '100%');
   let path = draw.path(pathArray);
   let filledPath = path;

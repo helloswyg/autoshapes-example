@@ -6,14 +6,15 @@ type BackgroundBlobProps = StyleProps & {
 };
 
 export const BackgroundBlob: React.FC<BackgroundBlobProps> = (props) => {
+  const {numPoints, ...passThroughProps} = props
   const shapeProps = {
     kind: ShapeKind.CLOSED,
-    complexity: props.numPoints,
+    complexity: numPoints,
   };
 
   return (
     <div className={styles.container}>
-      <ShapeComponent {...shapeProps} {...props} className={styles.shape} />
+      <ShapeComponent {...shapeProps} {...passThroughProps} className={styles.shape} />
       <div className={styles.contents}>
       {props.children}
       </div>
