@@ -1,4 +1,5 @@
 import { Path, PathArray, PointArray, Svg, SVG } from '@svgdotjs/svg.js';
+import { GradientSpec } from '.';
 
 export function smooth(pathArray: PathArray): PathArray {
   let flattenedArray = pathArray.flat();
@@ -119,4 +120,17 @@ export function quickDrawPath(elementID: string, pathArray: PathArray): Path {
   const draw: Svg = SVG().addTo(elementID).size('100%', '100%');
   const path = draw.path(pathArray).fill('none').stroke({ color: '#000', width: 3 });
   return path;
+}
+
+export function simpleLinearGradient(stops: string[], orientation = 90) {
+  const gradientSpec: GradientSpec = {
+    type: 'linear',
+    block: (add) => {
+      for (let i = 0; i < stops.length; i++) {
+        add.stop(i / (stops.length - 1), stops[i]);
+      }
+    },
+    orientation,
+  };
+  return gradientSpec;
 }

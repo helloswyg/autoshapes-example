@@ -8,6 +8,9 @@ export const theme = createTheme({
     h2: {
       fontSize: '3rem',
     },
+    body1:{
+      fontSize: '1.2rem'
+    }
   },
   palette: {
     primary: {
