@@ -15,7 +15,7 @@ export const BackgroundBlob: React.FC<BackgroundBlobProps> = (props) => {
 
   return (
     <div className={styles.container}>
-      <ShapeComponent {...shapeProps} {...passThroughProps} className={styles.shape} />
+      <ShapeComponent {...shapeProps} {...passThroughProps} className={styles.shape} debug />
       <div className={styles.contents}>{props.children}</div>
     </div>
   );

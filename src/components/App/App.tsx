@@ -6,6 +6,13 @@ import { Hero } from '../Hero';
 import { Section } from '../Section';
 import { AccentBlobsExample } from '../AccentBlobsExample';
 import { TextBlock } from '../TextBlock';
+import { setShapeTheme } from '../../lib/shapelib';
+
+// TODO: To be implemented:
+setShapeTheme({
+  color: 'rgba(255, 0, 0, .75)',
+  thickness: 4,
+});
 
 function App() {
   return (
