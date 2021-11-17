@@ -55,12 +55,39 @@ export const defaultShapeProps: Required<PathProps> = {
 };
 
 export const defaultStyleProps: Required<StyleProps> = {
-  fill: { color: '#000', opacity: 0.0 },
-  stroke: { color: 'black', width: 3, opacity: 0.8 },
+  // TODO: Do we need opacity?
+  fill: { color: 'black', opacity: 0.0 },
+  stroke: { color: 'black', width: 3, opacity: 0.8  },
   transform: {},
 };
 
-export const defaultDrawShapeProps = { ...defaultShapeProps, ...defaultStyleProps };
+export interface ShapeTheme {
+  // TODO: Maybe add some shortcuts like color and thickness?
+  color: string;
+  thickness: number;
+  shape: Required<PathProps>;
+  style: Required<StyleProps>;
+};
+
+const DEFAULT_SHAPE_PROPS: ShapeTheme = {
+  color: 'black',
+  thickness: 3,
+  shape: defaultShapeProps,
+  style: defaultStyleProps,
+};
+
+// TODO: This Was called defaultDrawShapeProps:
+export let theme: ShapeTheme = DEFAULT_SHAPE_PROPS;
+
+export function setShapeTheme(theme: Partial<ShapeTheme>) {
+  // TODO: This should probably be a deep merge instead:
+  theme = {
+    ...DEFAULT_SHAPE_PROPS,
+    ...theme,
+  };
+
+  // TODO: Change defaultShapeProps and defaultStyleProps as well ure always get them from defaultDrawShapeProps.
+}
 
 // Function implementations /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

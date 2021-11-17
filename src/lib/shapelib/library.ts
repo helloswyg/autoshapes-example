@@ -64,7 +64,26 @@ export interface LoopyLineParams {
 }
 
 export function loopyLine(params: LoopyLineParams): PathArray {
-  // TODO: make loopy line procedural
+  /*
+
+    TODO: Make loopy line procedural.
+
+    It might make sense to define some "connection points" for each shape, that have a position and an orientation. 
+    Based on that, each shape is rotated and translated to the appropriate position to smoothly connect with the
+    previous one.
+
+    Alternatively, curves could be generated randomly or from a preset list of possibilities with some variability
+    (but not completely random). See https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths.
+
+    There might be a different param to control if we want non-smooth connections and maybe give that a maximum value?
+
+    Also, ShapeKind.LOOPY and ShapeKind.WAVY might be combined into one single type of where there's a
+    loops: number | [number, number] (min, max) param that we can configure.
+
+  */
+
+
+
   return pathCompose([
     new PathArray(['M 0 0']),
     small(flipY(crest)),

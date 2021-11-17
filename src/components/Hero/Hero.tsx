@@ -10,25 +10,27 @@ type HeroProps = {
   lineColor?: string;
 };
 
-const shapeProps = {
-  kind: ShapeKind.LOOPY,
-  complexity: 4,
-  stroke: { color: '#ff1b5f', width: 3 },
-};
-
-export const Hero = ({ title, subTitle, buttons = [], lineColor = shapeProps.stroke.color }: HeroProps) => {
-  shapeProps.stroke.color = lineColor;
+export const Hero = ({
+  title,
+  subTitle,
+  buttons = [],
+  lineColor = '#ff1b5f',
+}: HeroProps) => {
   return (
-    <div className={styles.heroOuterDiv}>
+    <div className={ styles.heroOuterDiv }>
       <ShapeComponent
-        {...shapeProps}
-        style={{ position: 'absolute', maxWidth: '70%', marginTop: '-3em', zIndex: -1 }}
-      />
+        kind={ ShapeKind.LOOPY }
+        complexity={ 4 }
+        stroke={{ color: 'currentColor', width: 3 }}
+        style={{ maxWidth: '70%', marginTop: '-3em', fontSize: '3px', color: lineColor }}
+        debug />
+
       <div style={{ margin: '5em' }}>
-        <Typography variant="h1">{title}</Typography>
-        <Typography variant="h2">{subTitle}</Typography>
-        <>{buttons}</>
+        <Typography variant="h1">{ title }</Typography>
+        <Typography variant="h2">{ subTitle }</Typography>
+        { buttons }
       </div>
+
     </div>
   );
 };
