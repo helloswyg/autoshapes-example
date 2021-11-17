@@ -1,0 +1,8 @@
+
+.sideblob{
+    height: 300% !important;
+    width: 300% !important;
+    margin-left: 120%;
+    position: absolute;
+    z-index: -2 !important;
+}

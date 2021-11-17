@@ -1,4 +1,7 @@
 .app {
   height: 100%;
   text-align: center;
+  max-width: 1400px;
+  overflow-x: hidden;
+  margin: auto;
 }
