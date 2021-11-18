@@ -6,6 +6,7 @@ import { Hero } from '../Hero';
 import { Section } from '../Section';
 import { AccentBlobsExample } from '../AccentBlobsExample';
 import { TextBlock } from '../TextBlock';
+import { SideBlob } from '../ShapeComponents/SideBlob';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <AccentBlobsExample />
       </Section>
       <Section >
+        <SideBlob/>
         <TextBlock title="Text Block">
           This is a text block body text.
         </TextBlock>

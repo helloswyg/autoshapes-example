@@ -79,26 +79,26 @@ export function loopyLine(params: LoopyLineParams): PathArray {
 // closed shapes
 ////////////////////////////////////////////////////////////////////////////////////
 
-export function nPointRadial(radialDistances: number[]): PathArray {
-  // TODO: implement smoothness
-  const smoothness = 4;
+export function nPointRadial(radialDistances: number[], smoothness: number=0.5): PathArray {
   const offset = { x: 100, y: 100 };
   let output = new PathArray(['M', offset.x, offset.y + radialDistances[0]]);
   const numSegments = radialDistances.length;
 
   for (let i = 1; i < radialDistances.length + 1; i++) {
-    const d = radialDistances[i % numSegments];
-    const x = d * Math.sin((i * 2 * Math.PI) / numSegments) + offset.x;
-    const y = d * Math.cos((i * 2 * Math.PI) / numSegments) + offset.y;
-    const dX = ((-Math.cos((i * 2 * Math.PI) / numSegments) * d) / numSegments) * smoothness;
-    const dY = ((Math.sin((i * 2 * Math.PI) / numSegments) * d) / numSegments) * smoothness;
+    const r = radialDistances[i % numSegments];
+    const deltaR = radialDistances[i % numSegments] - radialDistances[(i-1) % numSegments]
+    const controlpointLength = (Math.abs(deltaR) / r + .5)  * smoothness * r / numSegments * 2 * Math.PI
+    const x = r * Math.sin((i * 2 * Math.PI) / numSegments) + offset.x;
+    const y = r * Math.cos((i * 2 * Math.PI) / numSegments) + offset.y;
+    const dX = -Math.cos(i * 2 * Math.PI / numSegments) * controlpointLength;
+    const dY = Math.sin(i * 2 * Math.PI/ numSegments) * controlpointLength;
     const controlPointX = x + dX;
     const controlPointY = y + dY;
 
     if (i === 1) {
       output = output.concat([
         'C',
-        20 + offset.x,
+        controlpointLength + offset.x,
         radialDistances[0] + offset.y,
         controlPointX,
         controlPointY,
@@ -123,13 +123,14 @@ export interface ClosedPathParams {
 }
 
 export function closedPath(params: ClosedPathParams): PathArray {
-  // TODO: implement smoothness
   const rng = seedrandom('seed string');
+  const oddNumberedBaseRadius = params.baseRadius - params.variability
   const radii = new Array(params.numPoints);
   for (let i = 0; i < params.numPoints; i++) {
-    radii[i] = params.baseRadius + (rng() - 0.5) * params.variability;
+    const currentBaseRadius = i%2 === 0 ? params.baseRadius : oddNumberedBaseRadius
+    radii[i] = currentBaseRadius + (rng() - 0.5) * params.variability;
   }
-  return nPointRadial(radii);
+  return nPointRadial(radii, params.smoothness);
 }
 
 export const blob2 = nPointRadial([75, 75]);
