@@ -73,20 +73,17 @@ To construct atoms that are chanable without flipping, we can use the atoms from
 We will generate all combinations.
 */
 export const atomVocabulary: Record<string, Line> = (() => {
-  const allAtoms: Record<string, Line> = {}
-  let counter = 0
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz'
+  const allAtoms: Record<string, Line> = {};
+  let counter = 0;
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   for (const key1 in symmetricAtoms) {
     for (const key2 in symmetricAtoms) {
-        allAtoms[alphabet[counter]] = pathCompose([
-          symmetricAtoms[key1], 
-          utils.flipY(symmetricAtoms[key2])
-        ])
-        counter++;
+      allAtoms[alphabet[counter]] = pathCompose([symmetricAtoms[key1], utils.flipY(symmetricAtoms[key2])]);
+      counter++;
     }
   }
-  return allAtoms
-})()
+  return allAtoms;
+})();
 
 /* 
 for a tutoral on decoding trees see: https://en.wikipedia.org/wiki/Binary_tree#Succinct_encodings
@@ -94,8 +91,8 @@ for a tutoral on decoding trees see: https://en.wikipedia.org/wiki/Binary_tree#S
 export function decodePathString(input: string): Node {
   let position = 0;
   console.log(atomVocabulary);
-  
-  if (!input ) return createNullAtom()
+
+  if (!input) return createNullAtom();
 
   const tree = (function next(): Node | null {
     const word = input[position++];
