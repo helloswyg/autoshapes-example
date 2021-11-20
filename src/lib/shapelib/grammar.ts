@@ -7,7 +7,6 @@ The unit operator is allowed as a modifier.
 */
 
 import { PathArray } from '@svgdotjs/svg.js';
-import { Children } from 'react';
 import { library, utils } from '.';
 import { pathCompose } from './utils';
 
@@ -54,22 +53,49 @@ export function evaluateTree(node: Node): Line {
 
 export const modifierVocabulary: Record<string, ModifierFunc> = {
   S: utils.small,
-  B: utils.big,
+  B: utils.bend,
   F: utils.flipY,
   I: (l) => l,
 };
 
-export const atomVocabulary: Record<string, Line> = {
+/* 
+Atoms with starting points at 45deg and end points at -45deg. 
+These can be chained if one is flipped vertically
+*/
+const symmetricAtoms: Record<string, Line> = {
   a: library.loop,
   b: library.crest,
   c: library.connector,
 };
+
+/*
+To construct atoms that are chanable without flipping, we can use the atoms from above. 
+We will generate all combinations.
+*/
+export const atomVocabulary: Record<string, Line> = (() => {
+  const allAtoms: Record<string, Line> = {}
+  let counter = 0
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'
+  for (const key1 in symmetricAtoms) {
+    for (const key2 in symmetricAtoms) {
+        allAtoms[alphabet[counter]] = pathCompose([
+          symmetricAtoms[key1], 
+          utils.flipY(symmetricAtoms[key2])
+        ])
+        counter++;
+    }
+  }
+  return allAtoms
+})()
 
 /* 
 for a tutoral on decoding trees see: https://en.wikipedia.org/wiki/Binary_tree#Succinct_encodings
 */
 export function decodePathString(input: string): Node {
   let position = 0;
+  console.log(atomVocabulary);
+  
+  if (!input ) return createNullAtom()
 
   const tree = (function next(): Node | null {
     const word = input[position++];
