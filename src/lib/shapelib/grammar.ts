@@ -49,7 +49,7 @@ export function createNullAtom(): AtomNode{
 
 export function evaluateTree(node: Node): Line {
   if (isAtom(node)) return node.atom;
-  return pathCompose(node.children.map(evaluateTree));
+  return node.modifier(pathCompose(node.children.map(evaluateTree)));
 }
 
 export const modifierVocabulary: Record<string, ModifierFunc> = {
@@ -68,13 +68,12 @@ export const atomVocabulary: Record<string, Line> = {
 /* 
 for a tutoral on decoding trees see: https://en.wikipedia.org/wiki/Binary_tree#Succinct_encodings
 */
-export function decodeString(input: string): Node {
+export function decodePathString(input: string): Node {
   let position = 0;
+
   const tree = (function next(): Node | null {
     const word = input[position++];
     if (word && word in modifierVocabulary) {
-        
-        
       const left = next() || createNullAtom()
       const right = next() || createNullAtom()
       const node: ModifierNode = {

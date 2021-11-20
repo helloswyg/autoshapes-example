@@ -3,7 +3,7 @@ import * as grammar from './grammar'
 
 test("decode returns a node that has type property", () => {
     const code = "BaBa"
-    const tree = grammar.decodeString(code)
+    const tree = grammar.decodePathString(code)
     
     expect(tree).toHaveProperty('type')
 })
@@ -18,7 +18,7 @@ test("decode returns a tree with the correct number of nodes", () => {
     const codes = Object.keys(treeLengths)
 
     codes.forEach(code => {
-        const tree = grammar.decodeString(code)
+        const tree = grammar.decodePathString(code)
         expect(grammar.countNodes(tree)).toEqual(treeLengths[code])
     });
 })
