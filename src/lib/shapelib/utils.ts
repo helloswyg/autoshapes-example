@@ -84,6 +84,36 @@ export function toPointArray(pathArray: PathArray): PointArray {
   return new PointArray(output);
 }
 
+/* 
+Rotate points around origin depending on their distance from the origin
+*/
+export function bend(pathArray: PathArray): PathArray {
+  let flattenedArray = pathArray.flat();
+  let numberCounter = 0;
+  let lastX = 0;
+
+  for (let index = 0; index < flattenedArray.length; index++) {
+    const element = flattenedArray[index];
+    if (typeof element === 'number') {
+      if (numberCounter % 2 === 0) { // is x coordinate
+        lastX = element
+      } else {
+        const x = lastX
+        const y = element
+        const r = Math.sqrt(x*x + y*y)
+        const angle = 2*Math.PI * r / 100000
+        const newX = x * Math.cos(angle) - y *Math.sin(angle)
+        const newY = x * Math.sin(angle) + y *Math.cos(angle)
+        flattenedArray[index] = newY
+        flattenedArray[index-1] = newX
+      }
+      numberCounter++;
+    }
+  }
+  return new PathArray(flattenedArray);
+    
+}
+
 export function pathCompose(segments: PathArray[]): PathArray {
   // we assume that the last two numbers in a path segment are the end point of the path so far.
   // That end point will be the starting point of the next segment.
