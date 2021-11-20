@@ -22,7 +22,7 @@ export enum NodeTypes {
 export interface ModifierNode {
   type: NodeTypes.MODIFIER;
   modifier: ModifierFunc;
-  children: (Node)[];
+  children: Node[];
 }
 
 export interface AtomNode {
@@ -40,11 +40,11 @@ export function isModifier(node: Node): node is ModifierNode {
   return node.type === NodeTypes.MODIFIER;
 }
 
-export function createNullAtom(): AtomNode{
-    return {
-        type: NodeTypes.ATOM,
-        atom: new PathArray
-    }
+export function createNullAtom(): AtomNode {
+  return {
+    type: NodeTypes.ATOM,
+    atom: new PathArray(),
+  };
 }
 
 export function evaluateTree(node: Node): Line {
@@ -74,34 +74,34 @@ export function decodePathString(input: string): Node {
   const tree = (function next(): Node | null {
     const word = input[position++];
     if (word && word in modifierVocabulary) {
-      const left = next() || createNullAtom()
-      const right = next() || createNullAtom()
+      const left = next() || createNullAtom();
+      const right = next() || createNullAtom();
       const node: ModifierNode = {
         type: NodeTypes.MODIFIER,
         modifier: modifierVocabulary[word],
-        children: [left , right],
+        children: [left, right],
       };
 
       return node;
-    } 
+    }
     if (word && word in atomVocabulary) {
-        const node: AtomNode = {
-          type: NodeTypes.ATOM,
-          atom: atomVocabulary[word],
-        };
+      const node: AtomNode = {
+        type: NodeTypes.ATOM,
+        atom: atomVocabulary[word],
+      };
 
-        return node;
-      } 
-    
-    return null
+      return node;
+    }
+
+    return null;
   })();
 
-  if (tree === null) throw "bad tree"
-  
-  return tree
+  if (tree === null) throw 'bad tree';
+
+  return tree;
 }
 
 export function countNodes(node: Node): number {
-    if (isAtom(node)) return 1;
-    return node.children.map(countNodes).reduce((a,b)=>a+b) +1;
+  if (isAtom(node)) return 1;
+  return node.children.map(countNodes).reduce((a, b) => a + b) + 1;
 }
