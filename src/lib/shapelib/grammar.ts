@@ -9,6 +9,8 @@ The unit operator is allowed as a modifier.
 import { PathArray } from '@svgdotjs/svg.js';
 import { library, utils } from '.';
 import { pathCompose } from './utils';
+import seedrandom from 'seedrandom';
+
 
 export type Line = PathArray;
 export type ModifierFunc = (l: Line) => Line;
@@ -53,6 +55,7 @@ export function evaluateTree(node: Node): Line {
 
 export const modifierVocabulary: Record<string, ModifierFunc> = {
   S: utils.small,
+  L: utils.big, 
   B: utils.bend,
   F: utils.flipY,
   I: (l) => l,
@@ -90,8 +93,6 @@ for a tutoral on decoding trees see: https://en.wikipedia.org/wiki/Binary_tree#S
 */
 export function decodePathString(input: string): Node {
   let position = 0;
-  console.log(atomVocabulary);
-
   if (!input) return createNullAtom();
 
   const tree = (function next(): Node | null {
@@ -127,4 +128,26 @@ export function decodePathString(input: string): Node {
 export function countNodes(node: Node): number {
   if (isAtom(node)) return 1;
   return node.children.map(countNodes).reduce((a, b) => a + b) + 1;
+}
+
+function choice<T>(arr: T[], seed?:string): T{
+  const rng = seedrandom(seed)
+  return arr[Math.floor(rng()*arr.length)] 
+}
+
+export function generateLinish(numModifiers:number) : string{
+  const modifierSet = Object.keys(modifierVocabulary)
+  const atomSet = Object.keys(atomVocabulary)
+  const jointSet = modifierSet.concat(atomSet)
+  let output = choice(modifierSet)
+  let modifierCounter = 1
+  let counter = 0
+  while (modifierCounter < numModifiers && counter<50) {
+    counter++
+    const next = choice(jointSet)
+    // console.log(next);
+    output += next
+    if (modifierSet.includes(next)) modifierCounter++
+  }
+  return output
 }
