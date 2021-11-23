@@ -1,6 +1,8 @@
 import { Typography } from '@mui/material';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { ShapeComponent, ShapeKind } from '../../lib/shapelib';
+import { generateLinish } from '../../lib/shapelib/grammar';
+import { VariableLine } from '../ShapeComponents/VariableLine';
 import styles from './Hero.module.css';
 
 type HeroProps = {
@@ -13,16 +15,19 @@ type HeroProps = {
 const shapeProps = {
   kind: ShapeKind.LOOPY,
   complexity: 4,
-  stroke: { color: '#ff1b5f', width: 3 },
+  stroke: { color: '#ff1b5f50', width: 5 },
 };
 
 export const Hero = ({ title, subTitle, buttons = [], lineColor = shapeProps.stroke.color }: HeroProps) => {
+  const [pathString, setPathString] = useState(generateLinish(2))
+
   shapeProps.stroke.color = lineColor;
   return (
     <div className={styles.heroOuterDiv}>
-      <ShapeComponent
+      <VariableLine
         {...shapeProps}
-        style={{ position: 'absolute', maxWidth: '70%', marginTop: '-3em', zIndex: -1 }}
+        pathString={pathString}
+        style={{ position: 'absolute', maxWidth: '100%', marginTop: '-3em', zIndex: -1 }}
       />
       <div style={{ margin: '5em' }}>
         <Typography variant="h1">{title}</Typography>

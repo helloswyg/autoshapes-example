@@ -10,6 +10,7 @@ export const LineExample = () => {
     return (
         <>
             <VariableLine pathString={pathString} />
+            <div>{pathString}</div>
             <Slider
                 value={complexity}
                 onChange={(e, v) => setComplexity(v as number)}
