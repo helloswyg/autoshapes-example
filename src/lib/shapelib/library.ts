@@ -37,7 +37,7 @@ export const loop = pathCompose([
   flipXY(reverseLoopSegment),
   flipY(reverseCurveSegment45),
 ]);
-export const crest = pathCompose([curveSegment45, flipY(reverseCurveSegment45)]);
+export const crest = pathCompose([curveSegment45, flipY(reverseCurveSegment45)], (l)=>l);
 export const connector = pathCompose([connectorSegment, flipY(reverseConnectorSegment)]);
 export const twistConnector = pathCompose([connectorSegment, reverseConnectorSegment]);
 export const drop = pathCompose([

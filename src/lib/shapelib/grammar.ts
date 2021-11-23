@@ -55,9 +55,10 @@ export function evaluateTree(node: Node): Line {
 
 export const modifierVocabulary: Record<string, ModifierFunc> = {
   S: utils.small,
-  L: utils.big, 
+  L: utils.big,
   B: utils.bend,
-  F: utils.flipY,
+  // N: utils.noise,
+  F: (l) => utils.pathCompose([library.connector, utils.flipY(l)]),
   I: (l) => l,
 };
 
@@ -130,24 +131,17 @@ export function countNodes(node: Node): number {
   return node.children.map(countNodes).reduce((a, b) => a + b) + 1;
 }
 
-function choice<T>(arr: T[], seed?:string): T{
+function choice<T>(arr: T[], seed?: string): T {
   const rng = seedrandom(seed)
-  return arr[Math.floor(rng()*arr.length)] 
+  return arr[Math.floor(rng() * arr.length)]
 }
 
-export function generateLinish(numModifiers:number) : string{
+export function generateLinish(numModifiers: number): string {
   const modifierSet = Object.keys(modifierVocabulary)
   const atomSet = Object.keys(atomVocabulary)
-  const jointSet = modifierSet.concat(atomSet)
-  let output = choice(modifierSet)
-  let modifierCounter = 1
-  let counter = 0
-  while (modifierCounter < numModifiers && counter<50) {
-    counter++
-    const next = choice(jointSet)
-    // console.log(next);
-    output += next
-    if (modifierSet.includes(next)) modifierCounter++
-  }
+  let output = (function next(depth: number):string {
+    if(depth>=numModifiers) return choice(atomSet)
+    return choice(modifierSet) + next(depth+1) + next(depth+1)
+  })(0)
   return output
 }

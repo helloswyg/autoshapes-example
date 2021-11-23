@@ -1,19 +1,25 @@
 import { Path, PathArray, PointArray, Svg, SVG } from '@svgdotjs/svg.js';
+import seedrandom from 'seedrandom';
 import { GradientSpec } from '.';
 
 export function smooth(pathArray: PathArray): PathArray {
+  
+  
   let flattenedArray = pathArray.flat();
+  console.log(flattenedArray);
+  if (flattenedArray.length === 0) return new PathArray()
   if (flattenedArray[0] === 'S') {
     return pathArray;
   }
   if (flattenedArray[0] === 'M') {
+    return pathArray;
     flattenedArray = flattenedArray.slice(3);
   }
   if (flattenedArray[0] === 'C') {
     flattenedArray = flattenedArray.slice(2);
     flattenedArray[0] = 'S';
   } else {
-    throw new Error('Only cubic bezier curves are supported');
+    throw new Error('Only cubic bezier curves are supported. ' + flattenedArray);
   }
   return new PathArray(flattenedArray);
 }
@@ -58,6 +64,19 @@ export function scale(pathArray: PathArray, factor: number): PathArray {
     const value = flattenedArray[index];
     if (typeof value === 'number') {
       flattenedArray[index] = value * factor;
+    }
+  }
+  return new PathArray(flattenedArray);
+}
+
+export function noise(pathArray: PathArray, factor: number=10, seed?: string): PathArray {
+  // TODO: adding noise to control points creates weird artifacts. 
+  const rng = seedrandom(seed)
+  let flattenedArray = pathArray.flat();
+  for (let index = 0; index < flattenedArray.length; index++) {
+    const value = flattenedArray[index];
+    if (typeof value === 'number') {
+      flattenedArray[index] = value + factor * rng();
     }
   }
   return new PathArray(flattenedArray);
@@ -114,10 +133,12 @@ export function bend(pathArray: PathArray): PathArray {
   return new PathArray(flattenedArray);
 }
 
-export function pathCompose(segments: PathArray[]): PathArray {
+export function pathCompose(segments: PathArray[], modifier=(p:PathArray)=>p): PathArray {
   // we assume that the last two numbers in a path segment are the end point of the path so far.
   // That end point will be the starting point of the next segment.
   // each segment is encoded as if starting at 0,0 so the segment has to be translated to new coordinates before appending.
+  // let modifierFunc = smooth//(l:PathArray) => l
+  // if (modifier) modifierFunc = modifier
 
   let output = new PathArray();
   if (segments[0].flat()[0] !== 'M') {
@@ -127,6 +148,7 @@ export function pathCompose(segments: PathArray[]): PathArray {
   segments.forEach((segment) => {
     const flattenedOutput = output.flat();
     let flattenedSegment = segment.flat();
+    if (flattenedSegment[0] === 'M') flattenedSegment = flattenedSegment.slice(3)
     const x = flattenedOutput[flattenedOutput.length - 2];
     const y = flattenedOutput[flattenedOutput.length - 1];
     let numberCounter = 0;
@@ -140,7 +162,7 @@ export function pathCompose(segments: PathArray[]): PathArray {
         numberCounter += 1;
       }
     }
-    output = output.concat(new PathArray(flattenedSegment)) as PathArray;
+    output = output.concat(modifier(new PathArray(flattenedSegment))) as PathArray;
   });
 
   return output;
