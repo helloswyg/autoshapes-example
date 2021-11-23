@@ -7,7 +7,8 @@ interface VariableLineProps extends Partial<ShapeProps> {
 }
 
 export const VariableLine: React.FC<VariableLineProps & React.HTMLAttributes<HTMLElement>> = (props) => {
-  const tree = decodePathString(props.pathString);
+  const {pathString, ...rest} = props
+  const tree = decodePathString(pathString);
   const path = evaluateTree(tree);
-  return <ShapeComponent {...props} path={path} kind={ShapeKind.LOOPY} className={styles.shape} fill="none" />;
+  return <ShapeComponent {...rest} path={path} kind={ShapeKind.LOOPY} className={styles.shape} fill="none" />;
 };
