@@ -121,7 +121,7 @@ export function decodePathString(input: string): Node {
     return null;
   })();
 
-  if (tree === null) throw 'bad tree';
+  if (tree === null) throw new Error('bad tree');
 
   return tree;
 }

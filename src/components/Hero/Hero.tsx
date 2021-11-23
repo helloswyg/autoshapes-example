@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
-import { ReactNode, useState } from 'react';
-import { ShapeComponent, ShapeKind } from '../../lib/shapelib';
+import { ReactNode } from 'react';
+import { ShapeKind } from '../../lib/shapelib';
 import { generateLinish } from '../../lib/shapelib/grammar';
 import { VariableLine } from '../ShapeComponents/VariableLine';
 import styles from './Hero.module.css';
@@ -19,7 +19,7 @@ const shapeProps = {
 };
 
 export const Hero = ({ title, subTitle, buttons = [], lineColor = shapeProps.stroke.color }: HeroProps) => {
-  const [pathString, setPathString] = useState(generateLinish(2))
+  const pathString = generateLinish(2)
 
   shapeProps.stroke.color = lineColor;
   return (

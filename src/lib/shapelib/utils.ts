@@ -12,7 +12,6 @@ export function smooth(pathArray: PathArray): PathArray {
     return pathArray;
   }
   if (flattenedArray[0] === 'M') {
-    return pathArray;
     flattenedArray = flattenedArray.slice(3);
   }
   if (flattenedArray[0] === 'C') {
