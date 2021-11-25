@@ -3,9 +3,9 @@ import styles from './App.module.css';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { Hero } from '../Hero';
-import { Section } from '../Section';
+import { Section } from '../Base/Section';
 import { AccentBlobsExample } from '../AccentBlobsExample';
-import { TextBlock } from '../TextBlock';
+import { TextBlock } from '../Base/TextBlock';
 import { SideBlob } from '../ShapeComponents/SideBlob';
 
 function App() {
