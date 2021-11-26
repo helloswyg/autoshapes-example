@@ -1,5 +1,24 @@
 import { createTheme } from '@mui/material/styles';
 
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    code: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    code?: React.CSSProperties;
+  }
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    code: true;
+  }
+}
+
+
 export const theme = createTheme({
   typography: {
     h1: {
@@ -9,7 +28,12 @@ export const theme = createTheme({
       fontSize: '3rem',
     },
     body1:{
-      fontSize: '1.2rem'
+      fontSize: '1.2rem',
+    },
+    code:{
+      fontFamily: 'monospace',
+      fontSize: '1.2rem',
+      letterSpacing: '0.1rem'
     }
   },
   palette: {
@@ -33,4 +57,12 @@ export const theme = createTheme({
     // E.g., shift from Red 500 to Red 300 or Red 700.
     tonalOffset: 0.2,
   },
+  components:{
+    MuiButton:{
+      defaultProps:{
+        variant:'contained'
+      }
+    }
+  },
+  spacing: 2,
 });
