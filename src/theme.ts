@@ -37,6 +37,9 @@ export const theme = createTheme({
       fontFamily: "source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace",
       fontSize: '1.2rem',
       letterSpacing: '0.1rem'
+    },
+    overline:{
+      lineHeight: '1em',
     }
   },
   palette: {
