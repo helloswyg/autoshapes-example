@@ -1,55 +1,82 @@
 import { Container, Stack, Typography } from "@mui/material"
 import { ShapeComponent, ShapeKind, ShapeProps } from "../../lib/shapelib"
+import { simpleLinearGradient } from "../../lib/shapelib/utils"
 import { ShapeGallery } from "../ShapeComponents/ShapeGallery"
 
 const color = "rgba(255, 121, 30, 0.87)"
 
-const geometricParams:ShapeProps = {
+const geometricParams: ShapeProps = {
     kind: ShapeKind.CLOSED,
     fill: color
 }
 const geometricSet = [
     {
-        name: 'name1',
+        name: '3-Point',
         shape: <ShapeComponent  {...geometricParams} complexity={3} />
     },
     {
-        name: 'name2',
+        name: '4-Point',
         shape: <ShapeComponent  {...geometricParams} complexity={4} />
     },
     {
-        name: 'name3',
+        name: '5-Point',
         shape: <ShapeComponent  {...geometricParams} complexity={5} />
     },
     {
-        name: 'name4',
+        name: '6-Point',
         shape: <ShapeComponent  {...geometricParams} complexity={6} />
     },
 ]
 
-const complexVariableParams:ShapeProps = {
+const smoothingParams: ShapeProps = {
     kind: ShapeKind.CLOSED,
     fill: color,
-    complexity:10,
-     variability:50,
-      smoothness:.5
+    complexity: 3
 }
-const complexVariableSet = [
+const smoothingSet = [0, 0.1,0.5,.8].map((item) => (
     {
-        name: 'name1',
-        shape: <ShapeComponent {...complexVariableParams}/>
+        name: `Smoothing=${item}`,
+        shape: <ShapeComponent {...smoothingParams} smoothness={item}/>
+    }
+))
+
+const complexVariableParams: ShapeProps = {
+    kind: ShapeKind.CLOSED,
+    fill: color,
+    variability: 50,
+    smoothness: .5
+}
+const complexVariableSet = [3, 3,10,10].map((item) => (
+    {
+        name: 'Random Variant',
+        shape: <ShapeComponent {...complexVariableParams} complexity={item}/>
+    }
+))
+    
+ 
+
+const fillVariationsParams: ShapeProps = {
+    kind: ShapeKind.CLOSED,
+    fill: color,
+    complexity: 5,
+    smoothness: .5
+}
+const fillVariationsSet = [
+    {
+        name: 'Outline',
+        shape: <ShapeComponent {...fillVariationsParams} fill="none"/>
     },
     {
-        name: 'name2',
-        shape: <ShapeComponent {...complexVariableParams}/>
+        name: 'Solid Color',
+        shape: <ShapeComponent {...fillVariationsParams} />
     },
     {
-        name: 'name3',
-        shape: <ShapeComponent {...complexVariableParams}/>
+        name: 'Gradient',
+        shape: <ShapeComponent {...fillVariationsParams} fill={simpleLinearGradient(["#000", "#FFF"])}/>
     },
     {
-        name: 'name4',
-        shape: <ShapeComponent {...complexVariableParams}/>
+        name: 'No Stroke',
+        shape: <ShapeComponent {...fillVariationsParams} stroke="none"/>
     },
 ]
 
@@ -57,10 +84,14 @@ export const VariationsGallery = () => {
     return (
         <Container>
             <Typography variant='h2'>Shape Families </Typography>
-            <Typography variant='subtitle1'>Shape Families give consistent but unique style throughout your project</Typography>
+            <Typography variant='subtitle1'>
+                Shape Families give consistent but unique style throughout your project
+            </Typography>
             <Stack>
                 <ShapeGallery title="Simple Geometric Shapes" shapes={geometricSet} />
+                <ShapeGallery title="Configure smoothness" shapes={smoothingSet} />
                 <ShapeGallery title="Variable Shapes" shapes={complexVariableSet} />
+                <ShapeGallery title="Variable Style" shapes={fillVariationsSet} />
             </Stack>
         </Container>
     )

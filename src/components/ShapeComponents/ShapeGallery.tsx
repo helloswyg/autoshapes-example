@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
 import { ReactNode } from "react"
 import { Gallery } from "../Base/Gallery/Gallery"
 
@@ -13,10 +13,10 @@ export type ShapeGalleryProps = {
 }
 
 const ShapeItem = (props:ShapeSpec) => (
-    <div style={{position:'relative'}}>
+    <Stack justifyContent='space-between' alignItems='center' height='100%'>
     <Typography variant='overline'>{props.name}</Typography>
     <div style={{width:'6rem'}}>{props.shape}</div>
-    </div>
+    </Stack>
 )
 
 export const ShapeGallery = (props:ShapeGalleryProps) => (

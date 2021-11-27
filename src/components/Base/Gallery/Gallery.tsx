@@ -9,17 +9,12 @@ export type GalleryProps = {
 const GalleryItem: React.FC<{}> = (props) => {
     const theme = useTheme()
     return (
-        <Paper>
-            <Box sx={{
-                minWidth: '5rem',
-                minHeight: '5rem',
-                justifyContent: 'center',
-                alignItems: 'center',
-                display: 'flex',
-                margin: theme.spacing(1, 2)
-            }}>
+        <Paper sx={{
+            minWidth: '5rem',
+            minHeight: '5rem',
+            padding: theme.spacing(2)
+        }}>
                 {props.children}
-            </Box>
         </Paper>
     )
 }
@@ -27,9 +22,9 @@ const GalleryItem: React.FC<{}> = (props) => {
 export const Gallery = (props: GalleryProps) => (
     <>
         <Typography variant="h3">{props.title}</Typography>
-        <Stack direction="row" spacing={1}>
-            {props.items.map((item) => (
-                <GalleryItem>{item}</GalleryItem>
+        <Stack direction="row" spacing={1} justifyContent="center">
+            {props.items.map((item, index) => (
+                <GalleryItem key={index}>{item}</GalleryItem>
             ))}
         </Stack>
     </>
