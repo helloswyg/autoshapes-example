@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography, useTheme } from "@mui/material"
+import { Paper, Stack, Typography, useTheme } from "@mui/material"
 import { ReactNode } from "react"
 
 export type GalleryProps = {
@@ -14,7 +14,7 @@ const GalleryItem: React.FC<{}> = (props) => {
             minHeight: '5rem',
             padding: theme.spacing(2)
         }}>
-                {props.children}
+            {props.children}
         </Paper>
     )
 }
