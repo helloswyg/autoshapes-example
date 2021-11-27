@@ -16,3 +16,9 @@ export const Default = Template.bind({});
 Default.args = {
     code: "console.log('hello world')"
 };
+
+export const WithDocs = Template.bind({});
+WithDocs.args = {
+    code: "console.log('hello world')",
+    docsURL: "#"
+};

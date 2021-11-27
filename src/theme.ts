@@ -27,11 +27,14 @@ export const theme = createTheme({
     h2: {
       fontSize: '3rem',
     },
+    h3: {
+      fontSize: '2rem',
+    },
     body1:{
       fontSize: '1.2rem',
     },
     code:{
-      fontFamily: 'monospace',
+      fontFamily: "source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace",
       fontSize: '1.2rem',
       letterSpacing: '0.1rem'
     }
@@ -61,8 +64,8 @@ export const theme = createTheme({
     MuiButton:{
       defaultProps:{
         variant:'contained'
-      }
+      },
     }
   },
-  spacing: 2,
+  // spacing: 2,
 });
