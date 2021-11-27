@@ -8,6 +8,7 @@ import { AccentBlobsExample } from '../AccentBlobsExample';
 import { TextBlock } from '../Base/TextBlock';
 import { SideBlob } from '../ShapeComponents/SideBlob';
 import { HowTo } from '../HowTo';
+import { VariationsGallery } from '../VariationsGallery';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
       </Section>
       <Section>
         <HowTo/>
+      </Section>
+      <Section>
+        <VariationsGallery/>
       </Section>
       <Section >
         <AccentBlobsExample />

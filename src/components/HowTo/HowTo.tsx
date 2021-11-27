@@ -1,4 +1,4 @@
-import { Container, Grid, Typography, useTheme } from "@mui/material"
+import { Container, Grid, Typography } from "@mui/material"
 import { CodeBlock } from "../Base/CodeBlock"
 
 
@@ -33,7 +33,6 @@ const HowToBlock = (props:HowToBlockProps) => {
 }
 
 export const HowTo = () => {
-    const theme = useTheme()
     return (
     <Container>
     <Grid container spacing={4} sx={{textAlign:'left'}}>
