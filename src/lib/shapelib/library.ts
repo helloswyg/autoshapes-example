@@ -120,10 +120,11 @@ export interface ClosedPathParams {
   variability: number;
   smoothness: number;
   baseRadius: number;
+  seed?: string;
 }
 
 export function closedPath(params: ClosedPathParams): PathArray {
-  const rng = seedrandom('seed string');
+  const rng = seedrandom(params.seed);
   const oddNumberedBaseRadius = params.baseRadius - params.variability
   const radii = new Array(params.numPoints);
   for (let i = 0; i < params.numPoints; i++) {
