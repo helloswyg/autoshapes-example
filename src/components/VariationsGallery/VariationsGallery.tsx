@@ -33,10 +33,10 @@ const smoothingParams: ShapeProps = {
     fill: color,
     complexity: 3
 }
-const smoothingSet = [0, 0.1,0.5,.8].map((item) => (
+const smoothingSet = [0, 0.1, 0.5, .8].map((item) => (
     {
         name: `Smoothing=${item}`,
-        shape: <ShapeComponent {...smoothingParams} smoothness={item}/>
+        shape: <ShapeComponent {...smoothingParams} smoothness={item} />
     }
 ))
 
@@ -46,14 +46,14 @@ const complexVariableParams: ShapeProps = {
     variability: 50,
     smoothness: .5
 }
-const complexVariableSet = [3, 3,10,10].map((item) => (
+const complexVariableSet = [3, 3, 10, 10].map((item) => (
     {
         name: 'Random Variant',
-        shape: <ShapeComponent {...complexVariableParams} complexity={item}/>
+        shape: <ShapeComponent {...complexVariableParams} complexity={item} />
     }
 ))
-    
- 
+
+
 
 const fillVariationsParams: ShapeProps = {
     kind: ShapeKind.CLOSED,
@@ -64,7 +64,7 @@ const fillVariationsParams: ShapeProps = {
 const fillVariationsSet = [
     {
         name: 'Outline',
-        shape: <ShapeComponent {...fillVariationsParams} fill="none"/>
+        shape: <ShapeComponent {...fillVariationsParams} fill="none" />
     },
     {
         name: 'Solid Color',
@@ -72,11 +72,11 @@ const fillVariationsSet = [
     },
     {
         name: 'Gradient',
-        shape: <ShapeComponent {...fillVariationsParams} fill={simpleLinearGradient(["#000", "#FFF"])}/>
+        shape: <ShapeComponent {...fillVariationsParams} fill={simpleLinearGradient(["#000", "#FFF"])} />
     },
     {
         name: 'No Stroke',
-        shape: <ShapeComponent {...fillVariationsParams} stroke="none"/>
+        shape: <ShapeComponent {...fillVariationsParams} stroke="none" />
     },
 ]
 
@@ -87,11 +87,11 @@ export const VariationsGallery = () => {
             <Typography variant='subtitle1'>
                 Shape Families give consistent but unique style throughout your project
             </Typography>
-            <Stack>
-                <ShapeGallery title="Simple Geometric Shapes" shapes={geometricSet} />
-                <ShapeGallery title="Configure smoothness" shapes={smoothingSet} />
-                <ShapeGallery title="Variable Shapes" shapes={complexVariableSet} />
-                <ShapeGallery title="Variable Style" shapes={fillVariationsSet} />
+            <Stack spacing={2}>
+                <ShapeGallery key={1} title="Simple Geometric Shapes" shapes={geometricSet} />
+                <ShapeGallery key={2} title="Configure smoothness" shapes={smoothingSet} />
+                <ShapeGallery key={3} title="Variable Shapes" shapes={complexVariableSet} />
+                <ShapeGallery key={4} title="Variable Style" shapes={fillVariationsSet} />
             </Stack>
         </Container>
     )

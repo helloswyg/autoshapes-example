@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material"
+import { Container, Stack, Typography, useTheme } from "@mui/material"
 import { ReactNode } from "react"
 import { Gallery } from "../Base/Gallery/Gallery"
 
@@ -12,12 +12,17 @@ export type ShapeGalleryProps = {
     shapes: ShapeSpec[]
 }
 
-const ShapeItem = (props: ShapeSpec) => (
-    <Stack justifyContent='space-between' alignItems='center' height='100%'>
-        <Typography variant='overline'>{props.name}</Typography>
-        <div style={{ width: '6rem' }}>{props.shape}</div>
-    </Stack>
-)
+const ShapeItem = (props: ShapeSpec) => {
+    const theme = useTheme()
+    return (
+        <Container sx={{ padding: theme.spacing(2), height: '100%' }}>
+            <Stack justifyContent='space-between' alignItems='center' height='100%'>
+                <Typography variant='overline'>{props.name}</Typography>
+                <div style={{ width: '12rem', margin: 'auto' }}>{props.shape}</div>
+            </Stack>
+        </Container>
+    )
+}
 
 export const ShapeGallery = (props: ShapeGalleryProps) => (
     <Gallery title={props.title} items={props.shapes.map(ShapeItem)} />
