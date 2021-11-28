@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Stack, Typography, useTheme } from "@mui/material"
+import { Grid, Paper, Typography } from "@mui/material"
 import { ReactNode } from "react"
 
 export type GalleryProps = {
@@ -7,7 +7,6 @@ export type GalleryProps = {
 }
 
 const GalleryItem: React.FC<{}> = (props) => {
-    const theme = useTheme()
     return (
 
         <Paper sx={{
@@ -22,7 +21,6 @@ const GalleryItem: React.FC<{}> = (props) => {
 }
 
 export const Gallery = (props: GalleryProps) => {
-    const theme = useTheme()
     return (
         <div>
             <Typography variant="h3">{props.title}</Typography>

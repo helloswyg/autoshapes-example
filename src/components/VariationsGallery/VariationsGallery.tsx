@@ -2,12 +2,16 @@ import { Container, Stack, Typography } from "@mui/material"
 import { ShapeComponent, ShapeKind, ShapeProps } from "../../lib/shapelib"
 import { simpleLinearGradient } from "../../lib/shapelib/utils"
 import { ShapeGallery } from "../ShapeComponents/ShapeGallery"
+import {theme} from '../../theme'
 
-const color = "rgba(255, 121, 30, 0.87)"
+const secondaryColor = theme.palette.secondary.light.toString()
+const primaryColor = theme.palette.primary.light.toString()
+const fill = simpleLinearGradient([secondaryColor, primaryColor], -30)
 
 const geometricParams: ShapeProps = {
     kind: ShapeKind.CLOSED,
-    fill: color
+    fill: fill,
+    stroke:'none'
 }
 const geometricSet = [
     {
@@ -30,7 +34,7 @@ const geometricSet = [
 
 const smoothingParams: ShapeProps = {
     kind: ShapeKind.CLOSED,
-    fill: color,
+    fill: fill,
     complexity: 3
 }
 const smoothingSet = [0, 0.1, 0.5, .8].map((item) => (
@@ -42,7 +46,7 @@ const smoothingSet = [0, 0.1, 0.5, .8].map((item) => (
 
 const complexVariableParams: ShapeProps = {
     kind: ShapeKind.CLOSED,
-    fill: color,
+    fill: fill,
     variability: 50,
     smoothness: .5
 }
@@ -57,7 +61,7 @@ const complexVariableSet = [3, 3, 10, 10].map((item) => (
 
 const fillVariationsParams: ShapeProps = {
     kind: ShapeKind.CLOSED,
-    fill: color,
+    fill: fill,
     complexity: 5,
     smoothness: .5
 }
@@ -68,11 +72,11 @@ const fillVariationsSet = [
     },
     {
         name: 'Solid Color',
-        shape: <ShapeComponent {...fillVariationsParams} />
+        shape: <ShapeComponent {...fillVariationsParams} fill={primaryColor}/>
     },
     {
         name: 'Gradient',
-        shape: <ShapeComponent {...fillVariationsParams} fill={simpleLinearGradient(["#000", "#FFF"])} />
+        shape: <ShapeComponent {...fillVariationsParams} />
     },
     {
         name: 'No Stroke',
