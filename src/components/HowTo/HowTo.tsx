@@ -36,13 +36,13 @@ export const HowTo = () => {
     return (
     <Container>
     <Grid container spacing={4} sx={{textAlign:'left'}}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
             <HowToBlock 
             title="React JS"
             code={reactCode}
             url="https://github.com/helloswyg/autoshapes-example"/>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
         <HowToBlock 
             title="Plain JS"
             code={plainJSCode}

@@ -16,12 +16,12 @@ function App() {
       <Header />
       <Section>
         <Hero
-          title={<>Instant Unique Brand</>}
-          subTitle={
+          title={
             <>
-              Beautiful procedurally generated shapes <br /> for your websites
+              Beautiful <br/> procedurally generated shapes <br/> for your website
             </>
           }
+          subTitle={""}
         />
       </Section>
       <Section>
@@ -30,9 +30,9 @@ function App() {
       <Section>
         <VariationsGallery/>
       </Section>
-      <Section >
+      {/* <Section >
         <AccentBlobsExample />
-      </Section>
+      </Section> */}
       <Section >
         <SideBlob/>
         <TextBlock title="Text Block">

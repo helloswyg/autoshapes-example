@@ -18,7 +18,7 @@ const ShapeItem = (props: ShapeSpec) => {
         <Container sx={{ padding: theme.spacing(2), height: '100%' }}>
             <Stack justifyContent='space-between' alignItems='center' height='100%'>
                 <Typography variant='overline'>{props.name}</Typography>
-                <div style={{ width: '12rem', margin: 'auto' }}>{props.shape}</div>
+                <div style={{ width: '8rem', margin: 'auto' }}>{props.shape}</div>
             </Stack>
         </Container>
     )

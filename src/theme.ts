@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface TypographyVariants {
@@ -19,10 +19,10 @@ declare module '@mui/material/Typography' {
 }
 
 
-export const theme = createTheme({
+export const theme = responsiveFontSizes(createTheme({
   typography: {
     h1: {
-      fontSize: '5rem',
+      fontSize: '3rem',
     },
     h2: {
       fontSize: '3rem',
@@ -75,4 +75,4 @@ export const theme = createTheme({
     }
   },
   // spacing: 2,
-});
+}));
