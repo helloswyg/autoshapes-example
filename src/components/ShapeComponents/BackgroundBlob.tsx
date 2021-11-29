@@ -7,11 +7,11 @@ type BackgroundBlobProps = StyleProps & {
 
 export const BackgroundBlob: React.FC<BackgroundBlobProps> = (props) => {
   const { numPoints, ...passThroughProps } = props;
-  const pathProps: PathProps= {
+  const pathProps: PathProps = {
     kind: ShapeKind.CLOSED,
     complexity: numPoints,
     variability: 50,
-    smoothness: .8
+    smoothness: 0.8,
   };
 
   return (

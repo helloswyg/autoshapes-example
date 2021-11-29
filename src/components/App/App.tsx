@@ -18,26 +18,24 @@ function App() {
         <Hero
           title={
             <>
-              Beautiful <br/> procedurally generated shapes <br/> for your website
+              Beautiful <br /> procedurally generated shapes <br /> for your website
             </>
           }
-          subTitle={""}
+          subTitle={''}
         />
       </Section>
       <Section>
-        <HowTo/>
+        <HowTo />
       </Section>
       <Section>
-        <VariationsGallery/>
+        <VariationsGallery />
       </Section>
       {/* <Section >
         <AccentBlobsExample />
       </Section> */}
-      <Section >
-        <SideBlob/>
-        <TextBlock title="Text Block">
-          This is a text block body text.
-        </TextBlock>
+      <Section>
+        <SideBlob />
+        <TextBlock title="Text Block">This is a text block body text.</TextBlock>
       </Section>
       <Footer />
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { drawShape, ShapeProps } from '../core';
 
-export type ShapeComponentProps = ShapeProps & React.HTMLAttributes<HTMLElement>
+export type ShapeComponentProps = ShapeProps & React.HTMLAttributes<HTMLElement>;
 
 export const ShapeComponent: React.FC<ShapeComponentProps> = (props) => {
   const refToDiv = useRef(null);

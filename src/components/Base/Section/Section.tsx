@@ -8,7 +8,7 @@ export const Section = (props: BoxProps) => (
     minHeight="30rem"
     margin="auto"
     padding="3rem 0 3rem 0"
-    position='relative'
+    position="relative"
     {...props}
   />
 );

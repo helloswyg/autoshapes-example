@@ -23,6 +23,6 @@ test('decode returns a tree with the correct number of nodes', () => {
 });
 
 test('string generator returns a string', () => {
-  const myString = grammar.generateLinish(4)
-  expect(myString).not.toBeNull()
+  const myString = grammar.generateLinish(4);
+  expect(myString).not.toBeNull();
 });

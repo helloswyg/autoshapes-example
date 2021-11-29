@@ -1,1 +1,1 @@
-export {HowTo} from './HowTo'
+export { HowTo } from './HowTo';

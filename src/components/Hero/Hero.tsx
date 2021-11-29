@@ -1,14 +1,14 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { ReactNode } from 'react';
-import {Blob} from '../../lib/shapelib'
+import { Blob } from '../../lib/shapelib';
 import { simpleLinearGradient } from '../../lib/shapelib/utils';
 import { theme } from '../../theme';
 import styles from './Hero.module.css';
 
-const secondaryColor = theme.palette.secondary.light.toString()
-const primaryColor = theme.palette.primary.light.toString()
-const fill = simpleLinearGradient([secondaryColor, primaryColor], -30)
+const secondaryColor = theme.palette.secondary.light.toString();
+const primaryColor = theme.palette.primary.light.toString();
+const fill = simpleLinearGradient([secondaryColor, primaryColor], -30);
 
 type HeroProps = {
   title: ReactNode;
@@ -21,15 +21,15 @@ const shapeProps: React.ComponentProps<typeof Blob> = {
   complexity: 14,
   stroke: 'none',
   fill: fill,
-  variability:40,
-  smoothness: .5,
+  variability: 40,
+  smoothness: 0.5,
 };
 
 export const Hero = ({ title, subTitle, buttons = [] }: HeroProps) => {
   return (
     <div className={styles.heroOuterDiv}>
       <Box className={styles.blobContainer}>
-      <Blob style={{ width:'24rem'}} {...shapeProps}/>
+        <Blob style={{ width: '24rem' }} {...shapeProps} />
       </Box>
       <div style={{ margin: '5em 0' }}>
         <Typography variant="h1">{title}</Typography>

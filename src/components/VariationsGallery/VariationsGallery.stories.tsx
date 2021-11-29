@@ -1,11 +1,10 @@
 // import { ComponentMeta } from "@storybook/react";
-import { VariationsGallery } from ".";
+import { VariationsGallery } from '.';
 
 export default {
-    title: "Variations Gallery",
-    component: VariationsGallery
-} 
+  title: 'Variations Gallery',
+  component: VariationsGallery,
+};
 // as ComponentMeta<typeof VariationsGallery>;
 
-
-export const Default = () => <VariationsGallery/>
+export const Default = () => <VariationsGallery />;

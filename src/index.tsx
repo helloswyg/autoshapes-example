@@ -10,7 +10,7 @@ import { CssBaseline } from '@mui/material';
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       <App />
     </ThemeProvider>
   </React.StrictMode>,

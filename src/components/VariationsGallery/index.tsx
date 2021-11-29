@@ -1,1 +1,1 @@
-export {VariationsGallery} from './VariationsGallery'
+export { VariationsGallery } from './VariationsGallery';
