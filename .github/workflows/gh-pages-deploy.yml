@@ -23,8 +23,10 @@ jobs:
 
     - name: Build Stage
       run: yarn build
+      
+    - name: Build Storybook
       run: yarn build-storybook
-
+      
     - name: Deploy to github pages
       uses: peaceiris/actions-gh-pages@v3
       with:
