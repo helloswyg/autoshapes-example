@@ -5,7 +5,7 @@ export default {
     title: "Gallery",
     component: Gallery
 } as ComponentMeta<typeof Gallery>;
-{/* <div style={{width:'40rem'}}>  */}
+
 const Template: ComponentStory<typeof Gallery> = (args) => (
 <Gallery {...args}/>
 )

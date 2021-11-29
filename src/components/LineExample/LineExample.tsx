@@ -1,6 +1,6 @@
-import { Button, Slider, TextField } from "@mui/material"
+import { Button, Slider } from "@mui/material"
 import { useState } from "react"
-import { decodePathString, generateLinish } from "../../lib/shapelib/grammar"
+import { generateLinish } from "../../lib/shapelib/grammar"
 import { VariableLine } from "../ShapeComponents/VariableLine"
 
 export const LineExample = () => {

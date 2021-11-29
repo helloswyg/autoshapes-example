@@ -5,7 +5,7 @@ export default {
     title: "How To",
     component: HowTo
 } as ComponentMeta<typeof HowTo>;
-{/* <div style={{width:'40rem'}}>  */}
+
 const Template: ComponentStory<typeof HowTo> = (args) => (
 <HowTo/>
 )
