@@ -1,0 +1,29 @@
+.blob1 {
+  position: absolute;
+  width: 12rem !important;
+  height: 12rem !important;
+  left: -8rem;
+  top: -3rem;
+  z-index: 1 !important;
+  opacity: 0.7;
+}
+
+.blob2 {
+  position: absolute;
+  width: 20rem !important;
+  height: 20rem !important;
+  right: -6rem;
+  top: -8rem;
+  z-index: -1 !important;
+  opacity: 0.7;
+}
+
+.blob3 {
+  position: absolute;
+  width: 15rem !important;
+  height: 15rem !important;
+  right: 40%;
+  bottom: -8rem;
+  z-index: -2 !important;
+  opacity: 0.7;
+}

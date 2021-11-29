@@ -3,11 +3,9 @@ import seedrandom from 'seedrandom';
 import { GradientSpec } from '.';
 
 export function smooth(pathArray: PathArray): PathArray {
-  
-  
   let flattenedArray = pathArray.flat();
   console.log(flattenedArray);
-  if (flattenedArray.length === 0) return new PathArray()
+  if (flattenedArray.length === 0) return new PathArray();
   if (flattenedArray[0] === 'S') {
     return pathArray;
   }
@@ -68,9 +66,9 @@ export function scale(pathArray: PathArray, factor: number): PathArray {
   return new PathArray(flattenedArray);
 }
 
-export function noise(pathArray: PathArray, factor: number=10, seed?: string): PathArray {
-  // TODO: adding noise to control points creates weird artifacts. 
-  const rng = seedrandom(seed)
+export function noise(pathArray: PathArray, factor: number = 10, seed?: string): PathArray {
+  // TODO: adding noise to control points creates weird artifacts.
+  const rng = seedrandom(seed);
   let flattenedArray = pathArray.flat();
   for (let index = 0; index < flattenedArray.length; index++) {
     const value = flattenedArray[index];
@@ -132,7 +130,7 @@ export function bend(pathArray: PathArray): PathArray {
   return new PathArray(flattenedArray);
 }
 
-export function pathCompose(segments: PathArray[], modifier=(p:PathArray)=>p): PathArray {
+export function pathCompose(segments: PathArray[], modifier = (p: PathArray) => p): PathArray {
   // we assume that the last two numbers in a path segment are the end point of the path so far.
   // That end point will be the starting point of the next segment.
   // each segment is encoded as if starting at 0,0 so the segment has to be translated to new coordinates before appending.
@@ -147,7 +145,7 @@ export function pathCompose(segments: PathArray[], modifier=(p:PathArray)=>p): P
   segments.forEach((segment) => {
     const flattenedOutput = output.flat();
     let flattenedSegment = segment.flat();
-    if (flattenedSegment[0] === 'M') flattenedSegment = flattenedSegment.slice(3)
+    if (flattenedSegment[0] === 'M') flattenedSegment = flattenedSegment.slice(3);
     const x = flattenedOutput[flattenedOutput.length - 2];
     const y = flattenedOutput[flattenedOutput.length - 1];
     let numberCounter = 0;

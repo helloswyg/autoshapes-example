@@ -31,7 +31,7 @@
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.ts(x)?\" \"src/**/*.(s)?css\"",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public -o build/storybook"
   },
   "eslintConfig": {
     "extends": [
@@ -70,7 +70,8 @@
     "@storybook/react": "^6.3.12",
     "gh-pages": "^3.2.3",
     "prettier": "^2.4.1",
-    "sb": "^6.3.12"
+    "sb": "^6.3.12",
+    "serve": "^13.0.2"
   },
   "resolutions": {
     "babel-loader": "8.1.0"

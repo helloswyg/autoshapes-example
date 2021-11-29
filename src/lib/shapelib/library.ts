@@ -37,7 +37,7 @@ export const loop = pathCompose([
   flipXY(reverseLoopSegment),
   flipY(reverseCurveSegment45),
 ]);
-export const crest = pathCompose([curveSegment45, flipY(reverseCurveSegment45)], (l)=>l);
+export const crest = pathCompose([curveSegment45, flipY(reverseCurveSegment45)], (l) => l);
 export const connector = pathCompose([connectorSegment, flipY(reverseConnectorSegment)]);
 export const twistConnector = pathCompose([connectorSegment, reverseConnectorSegment]);
 export const drop = pathCompose([
@@ -79,19 +79,19 @@ export function loopyLine(params: LoopyLineParams): PathArray {
 // closed shapes
 ////////////////////////////////////////////////////////////////////////////////////
 
-export function nPointRadial(radialDistances: number[], smoothness: number=0.5): PathArray {
+export function nPointRadial(radialDistances: number[], smoothness: number = 0.5): PathArray {
   const offset = { x: 100, y: 100 };
   let output = new PathArray(['M', offset.x, offset.y + radialDistances[0]]);
   const numSegments = radialDistances.length;
 
   for (let i = 1; i < radialDistances.length + 1; i++) {
     const r = radialDistances[i % numSegments];
-    const deltaR = radialDistances[i % numSegments] - radialDistances[(i-1) % numSegments]
-    const controlpointLength = (Math.abs(deltaR) / r + .5)  * smoothness * r / numSegments * 2 * Math.PI
+    const deltaR = radialDistances[i % numSegments] - radialDistances[(i - 1) % numSegments];
+    const controlpointLength = (((Math.abs(deltaR) / r + 0.5) * smoothness * r) / numSegments) * 2 * Math.PI;
     const x = r * Math.sin((i * 2 * Math.PI) / numSegments) + offset.x;
     const y = r * Math.cos((i * 2 * Math.PI) / numSegments) + offset.y;
-    const dX = -Math.cos(i * 2 * Math.PI / numSegments) * controlpointLength;
-    const dY = Math.sin(i * 2 * Math.PI/ numSegments) * controlpointLength;
+    const dX = -Math.cos((i * 2 * Math.PI) / numSegments) * controlpointLength;
+    const dY = Math.sin((i * 2 * Math.PI) / numSegments) * controlpointLength;
     const controlPointX = x + dX;
     const controlPointY = y + dY;
 
@@ -120,14 +120,15 @@ export interface ClosedPathParams {
   variability: number;
   smoothness: number;
   baseRadius: number;
+  seed?: string;
 }
 
 export function closedPath(params: ClosedPathParams): PathArray {
-  const rng = seedrandom('seed string');
-  const oddNumberedBaseRadius = params.baseRadius - params.variability
+  const rng = seedrandom(params.seed);
+  const oddNumberedBaseRadius = params.baseRadius - params.variability;
   const radii = new Array(params.numPoints);
   for (let i = 0; i < params.numPoints; i++) {
-    const currentBaseRadius = i%2 === 0 ? params.baseRadius : oddNumberedBaseRadius
+    const currentBaseRadius = i % 2 === 0 ? params.baseRadius : oddNumberedBaseRadius;
     radii[i] = currentBaseRadius + (rng() - 0.5) * params.variability;
   }
   return nPointRadial(radii, params.smoothness);

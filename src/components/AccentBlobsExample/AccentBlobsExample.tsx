@@ -9,8 +9,9 @@ export const AccentBlobsExample = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-      <div><Typography variant='h2'>Background shapes</Typography></div>
-
+        <div>
+          <Typography variant="h2">Background shapes</Typography>
+        </div>
       </Grid>
       <Grid item xs={4}>
         <BackgroundBlob numPoints={5} stroke={{ color: baseColor, width: 3, opacity: 0.6 }} fill="none">

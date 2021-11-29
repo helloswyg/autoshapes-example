@@ -11,7 +11,6 @@ import { library, utils } from '.';
 import { pathCompose } from './utils';
 import seedrandom from 'seedrandom';
 
-
 export type Line = PathArray;
 export type ModifierFunc = (l: Line) => Line;
 
@@ -132,16 +131,16 @@ export function countNodes(node: Node): number {
 }
 
 function choice<T>(arr: T[], seed?: string): T {
-  const rng = seedrandom(seed)
-  return arr[Math.floor(rng() * arr.length)]
+  const rng = seedrandom(seed);
+  return arr[Math.floor(rng() * arr.length)];
 }
 
 export function generateLinish(numModifiers: number): string {
-  const modifierSet = Object.keys(modifierVocabulary)
-  const atomSet = Object.keys(atomVocabulary)
-  let output = (function next(depth: number):string {
-    if(depth>=numModifiers) return choice(atomSet)
-    return choice(modifierSet) + next(depth+1) + next(depth+1)
-  })(0)
-  return output
+  const modifierSet = Object.keys(modifierVocabulary);
+  const atomSet = Object.keys(atomVocabulary);
+  let output = (function next(depth: number): string {
+    if (depth >= numModifiers) return choice(atomSet);
+    return choice(modifierSet) + next(depth + 1) + next(depth + 1);
+  })(0);
+  return output;
 }

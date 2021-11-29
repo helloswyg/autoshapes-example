@@ -5,11 +5,10 @@ export const Section = (props: BoxProps) => (
     display="flex"
     justifyContent="center"
     alignItems="center"
-    minHeight="60vh"
-    maxWidth="1440px"
+    minHeight="30rem"
     margin="auto"
-    padding="5rem 0 5rem 0"
-    position='relative'
+    padding="3rem 0 3rem 0"
+    position="relative"
     {...props}
   />
 );
