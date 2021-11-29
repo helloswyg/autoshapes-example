@@ -16,7 +16,7 @@ export const TextBoxExample = () => {
   const secondaryLight = theme.palette.secondary.light.toString();
 
   return (
-    <div style={{ position: 'relative', margin: theme.spacing(10, 2) }}>
+    <div style={{ position: 'relative', margin: theme.spacing(20, 2) }}>
       <Blob className={styles.blob1} fill={primary} {...blobProps} />
       <Blob className={styles.blob2} fill={secondary} {...blobProps} complexity={5} />
       <Blob className={styles.blob3} fill={secondaryLight} transform={{ rotate: 20 }} {...blobProps} />

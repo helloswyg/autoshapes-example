@@ -6,7 +6,7 @@ export const SideBlob: React.FC<Partial<ShapeProps>> = (props) => (
     {...props}
     kind={ShapeKind.CLOSED}
     complexity={7}
-    variability={50}
+    variability={30}
     className={styles.sideblob}
     stroke="none"
     fill="#bbb3"

@@ -4,8 +4,6 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { Hero } from '../Hero';
 import { Section } from '../Base/Section';
-import { AccentBlobsExample } from '../AccentBlobsExample';
-import { TextBlock } from '../Base/TextBlock';
 import { SideBlob } from '../ShapeComponents/SideBlob';
 import { HowTo } from '../HowTo';
 import { VariationsGallery } from '../VariationsGallery';

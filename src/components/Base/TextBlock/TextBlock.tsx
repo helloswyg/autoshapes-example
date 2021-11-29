@@ -1,4 +1,4 @@
-import { Paper, Typography, Container, Box, useTheme } from '@mui/material';
+import { Paper, Typography, Box, useTheme } from '@mui/material';
 import { ReactNode } from 'react';
 
 type TextBlockProps = {
