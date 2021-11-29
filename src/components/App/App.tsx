@@ -9,6 +9,7 @@ import { TextBlock } from '../Base/TextBlock';
 import { SideBlob } from '../ShapeComponents/SideBlob';
 import { HowTo } from '../HowTo';
 import { VariationsGallery } from '../VariationsGallery';
+import { TextBoxExample } from '../TextBoxExample';
 
 function App() {
   return (
@@ -28,14 +29,14 @@ function App() {
         <HowTo />
       </Section>
       <Section>
+        <SideBlob />
         <VariationsGallery />
       </Section>
       {/* <Section >
         <AccentBlobsExample />
       </Section> */}
       <Section>
-        <SideBlob />
-        <TextBlock title="Text Block">This is a text block body text.</TextBlock>
+        <TextBoxExample />
       </Section>
       <Footer />
     </div>

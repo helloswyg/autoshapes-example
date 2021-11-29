@@ -126,6 +126,9 @@ export function drawShape(params: DrawShapeParams) {
     path = filledPath.stroke(allParams.stroke as StrokeData);
   }
 
+  path = path.transform(allParams.transform);
+  // TODO: rotation here breaks bounding box below
+
   // set viewport for svg to bounding box + margin
   try {
     const bbox = path.bbox();
