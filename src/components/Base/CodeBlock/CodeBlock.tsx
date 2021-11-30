@@ -9,7 +9,15 @@ export const CodeBlock = (props: CodeBlockProps) => {
   const theme = useTheme();
   return (
     <>
-      <Paper sx={{ padding: theme.spacing(1), margin: theme.spacing(1, 0), overflow: 'hidden' }}>
+      <Paper
+        sx={{
+          padding: theme.spacing(1),
+          margin: theme.spacing(1, 0),
+          overflow: 'hidden',
+          background: theme.palette.grey[900],
+          color: 'white',
+        }}
+      >
         <Typography variant="code" sx={{ whiteSpace: 'pre-wrap' }}>
           {props.code}
         </Typography>
