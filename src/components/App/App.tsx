@@ -15,12 +15,13 @@ function App() {
       <Header />
       <Section>
         <Hero
-          title={
+          title={<>ShapeLib</>}
+          subTitle={
             <>
-              ShapeLib
+              Beautiful, procedurally generated <br />
+              shapes for the web
             </>
           }
-          subTitle={<>Beautiful, procedurally generated <br />shapes for the web</>}
         />
       </Section>
       <Section>

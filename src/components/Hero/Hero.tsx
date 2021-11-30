@@ -28,16 +28,16 @@ const shapeProps: React.ComponentProps<typeof Blob> = {
 export const Hero = ({ title, subTitle, buttons = [] }: HeroProps) => {
   return (
     <Container className={styles.heroOuterDiv}>
-    {/* <div > */}
+      {/* <div > */}
       <Box className={styles.blobContainer}>
-        <Blob  {...shapeProps} />
+        <Blob {...shapeProps} />
       </Box>
-      <Box sx={{ margin: {xs:'3rem 0 7rem', md:'10rem 0'} }}>
+      <Box sx={{ margin: { xs: '3rem 0 7rem', md: '10rem 0' } }}>
         <Typography variant="h1">{title}</Typography>
         <Typography variant="h2">{subTitle}</Typography>
         <>{buttons}</>
       </Box>
-    {/* </div> */}
+      {/* </div> */}
     </Container>
   );
 };
