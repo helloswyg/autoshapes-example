@@ -130,7 +130,6 @@ export function drawShape(params: DrawShapeParams) {
   // set viewport for svg to bounding box + margin
   try {
     const bbox = path.bbox();
-    console.log(bbox);
 
     const margin = 4;
     const bboxExpanded = {
