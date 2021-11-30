@@ -22,7 +22,7 @@ export const theme = responsiveFontSizes(
   createTheme({
     typography: {
       h1: {
-        fontSize: '3rem',
+        fontSize: '5rem',
       },
       h2: {
         fontSize: '3rem',

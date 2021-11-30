@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { ReactNode } from 'react';
 import { Blob } from '../../lib/shapelib';
@@ -27,15 +27,17 @@ const shapeProps: React.ComponentProps<typeof Blob> = {
 
 export const Hero = ({ title, subTitle, buttons = [] }: HeroProps) => {
   return (
-    <div className={styles.heroOuterDiv}>
+    <Container className={styles.heroOuterDiv}>
+    {/* <div > */}
       <Box className={styles.blobContainer}>
-        <Blob style={{ width: '24rem' }} {...shapeProps} />
+        <Blob  {...shapeProps} />
       </Box>
-      <div style={{ margin: '5em 0' }}>
+      <Box sx={{ margin: {xs:'3rem 0 7rem', md:'10rem 0'} }}>
         <Typography variant="h1">{title}</Typography>
         <Typography variant="h2">{subTitle}</Typography>
         <>{buttons}</>
-      </div>
-    </div>
+      </Box>
+    {/* </div> */}
+    </Container>
   );
 };

@@ -17,10 +17,10 @@ function App() {
         <Hero
           title={
             <>
-              Beautiful <br /> procedurally generated shapes <br /> for your website
+              ShapeLib
             </>
           }
-          subTitle={''}
+          subTitle={<>Beautiful, procedurally generated <br />shapes for the web</>}
         />
       </Section>
       <Section>
