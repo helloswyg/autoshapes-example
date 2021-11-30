@@ -1,4 +1,4 @@
-import { Container, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Container, Stack, Typography, useTheme } from '@mui/material';
 import { ReactNode } from 'react';
 import { Gallery } from '../Base/Gallery/Gallery';
 
@@ -24,6 +24,11 @@ const ShapeItem = (props: ShapeSpec) => {
   );
 };
 
-export const ShapeGallery = (props: ShapeGalleryProps) => (
-  <Gallery title={props.title} items={props.shapes.map(ShapeItem)} />
-);
+export const ShapeGallery = (props: ShapeGalleryProps) => {
+  const theme = useTheme();
+  return (
+    <Box sx={{ padding: theme.spacing(2, 0), paddingLeft: 0 }}>
+      <Gallery title={props.title} items={props.shapes.map(ShapeItem)} />
+    </Box>
+  );
+};

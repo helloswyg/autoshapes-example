@@ -22,7 +22,7 @@ const GalleryItem: React.FC<{}> = (props) => {
 
 export const Gallery = (props: GalleryProps) => {
   return (
-    <div>
+    <>
       <Typography variant="h3">{props.title}</Typography>
       <Grid container spacing={1} justifyContent="center">
         {props.items.map((item, index) => (
@@ -31,6 +31,6 @@ export const Gallery = (props: GalleryProps) => {
           </Grid>
         ))}
       </Grid>
-    </div>
+    </>
   );
 };

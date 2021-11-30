@@ -33,7 +33,9 @@ const baseTheme = createTheme({
       fontSize: '3rem',
     },
     h3: {
-      fontSize: '2rem',
+      fontSize: '1.2rem',
+      textAlign: 'left',
+      fontWeight: 200,
     },
     body1: {
       fontSize: '1.2rem',

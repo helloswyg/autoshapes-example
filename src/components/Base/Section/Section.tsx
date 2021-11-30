@@ -7,7 +7,7 @@ export const Section = (props: BoxProps) => (
     alignItems="center"
     minHeight="30rem"
     margin="auto"
-    padding="3rem 0 3rem 0"
+    padding={{ xs: '3rem 0rem', md: '3rem 5rem' }}
     position="relative"
     {...props}
   />
