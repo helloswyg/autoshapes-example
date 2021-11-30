@@ -16,14 +16,14 @@ export const TextBoxExample = () => {
   const primaryLight = theme.palette.primary.light.toString();
   const secondary = theme.palette.secondary.dark.toString();
   const secondaryLight = theme.palette.secondary.light.toString();
-  const secondaryGradient = simpleLinearGradient([secondaryLight, secondary,])
-  const primaryGradient = simpleLinearGradient([primaryLight, primary], 90)
+  const secondaryGradient = simpleLinearGradient([secondaryLight, secondary]);
+  const primaryGradient = simpleLinearGradient([primaryLight, primary], 90);
 
   return (
     <div style={{ position: 'relative', margin: theme.spacing(20, 2) }}>
-      <Blob className={styles.blob1} fill={primaryGradient} transform={{ rotate: -20 }} {...blobProps} />
+      <Blob className={styles.blob1} fill={primaryGradient} rotate={-20} {...blobProps} />
       <Blob className={styles.blob2} fill={secondaryGradient} {...blobProps} complexity={5} />
-      <Blob className={styles.blob3} fill={secondaryGradient} transform={{ rotate: 20 }} {...blobProps} />
+      <Blob className={styles.blob3} fill={secondaryGradient} rotate={-20} {...blobProps} />
       <TextBlock title="Add color and depth">
         By placing shapes either in fron or behind your content you can add depth without distracting from your content
       </TextBlock>

@@ -1,5 +1,5 @@
-import { Container, FillData, Gradient, MatrixAlias, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
-import { library } from '.';
+import { Container, FillData, Gradient, PathArray, StrokeData, SVG, Svg } from '@svgdotjs/svg.js';
+import { library, utils } from '.';
 
 // Type definitions /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,7 +33,7 @@ function isGradientSpec(spec: any): spec is GradientSpec {
 export type StyleProps = {
   fill?: FillData | string | GradientSpec;
   stroke?: StrokeData | string | GradientSpec;
-  transform?: MatrixAlias;
+  rotate?: number;
 };
 
 export type Element = {
@@ -57,7 +57,7 @@ export const defaultShapeProps: Required<PathProps> = {
 export const defaultStyleProps: Required<StyleProps> = {
   fill: { color: '#000', opacity: 0.0 },
   stroke: { color: 'black', width: 3, opacity: 0.8 },
-  transform: {},
+  rotate: 0,
 };
 
 export const defaultDrawShapeProps = { ...defaultShapeProps, ...defaultStyleProps };
@@ -102,7 +102,8 @@ export function drawShape(params: DrawShapeParams) {
   const allParams: Required<DrawShapeParams> = { ...defaultDrawShapeProps, ...params };
   const pathArray = getShape(allParams as PathProps);
   const draw: Svg = SVG().addTo(allParams.element).size('100%', '100%');
-  let path = draw.path(pathArray);
+  const transformed = utils.rotate(pathArray, allParams.rotate);
+  let path = draw.path(transformed);
   let filledPath = path;
 
   // some verbose language to be allowed to use overloaded "fill" function with union types
@@ -128,10 +129,9 @@ export function drawShape(params: DrawShapeParams) {
 
   // set viewport for svg to bounding box + margin
   try {
-    path = path.transform(allParams.transform);
-    // TODO: rotation here breaks bounding box below
-
     const bbox = path.bbox();
+    console.log(bbox);
+
     const margin = 4;
     const bboxExpanded = {
       x: bbox.x - margin,
